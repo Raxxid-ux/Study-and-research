@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Neuropsychology of Decision-Making: Study & Revision Notes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            neural: {
+              50: '#f5f7ff',
+              100: '#ebf0fe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#172554',
+              950: '#0b0f19',
+            },
+            cortex: {
+              cyan: '#06b6d4',
+              violet: '#8b5cf6',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* 3D Flashcard Utilities */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Glass Effect Utilities */
+    .glass-nav {
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.04); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 4s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-neural-600 selection:text-white pb-20">
+
+  <!-- Top Reading Progress Indicator -->
+  <div id="scrollProgressBar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cortex-cyan via-neural-500 to-cortex-violet z-50 transition-all duration-150" style="width: 0%;"></div>
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neural-600 via-cortex-violet to-cortex-cyan flex items-center justify-center shadow-lg shadow-neural-500/25">
+          <i class="fa-solid fa-brain text-white text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold tracking-tight text-white flex items-center gap-1.5">
+            NeuroDecision
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cortex-cyan/20 text-cortex-cyan border border-cortex-cyan/30 font-mono">Hub</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">The Neuropsychology of Decision-Making Revision</p>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center space-x-1 text-xs font-medium text-slate-300">
+        <a href="#brain-basics" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">1. Brain Basics</a>
+        <a href="#prefrontal-cortex" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">2. Prefrontal Cortex</a>
+        <a href="#neurotransmitters-stress" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">3. Chemicals & Stress</a>
+        <a href="#decision-styles" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">4. Decision Styles</a>
+        <a href="#clinical-deficits" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">5. Deficits & Labs</a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center space-x-2">
+        <button onclick="scrollToId('igt-lab')" class="px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-cortex-amber to-rose-600 text-white shadow-md hover:brightness-110 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-gamepad"></i>
+          <span class="hidden sm:inline">Play IGT Lab</span>
+          <span class="sm:hidden">IGT</span>
+        </button>
+        <button onclick="scrollToId('quiz-container')" class="px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-lg bg-neural-700 hover:bg-neural-600 text-white transition flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-question"></i>
+          <span class="hidden sm:inline">Quiz</span>
+        </button>
+        <button id="audioToggleBtn" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 transition" title="Toggle Interaction Audio">
+          <i id="audioIcon" class="fa-solid fa-volume-high text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-10 sm:space-y-14">
+
+    <!-- Hero Banner -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-neural-950 border border-slate-800 p-6 sm:p-10 shadow-2xl">
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-neural-600/10 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-cortex-violet/10 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cortex-cyan/10 border border-cortex-cyan/30 text-cortex-cyan text-xs font-mono font-medium">
+          <i class="fa-solid fa-microchip"></i> Interactive Decision Neuroscience
+        </div>
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          The Neuropsychology of <span class="bg-clip-text text-transparent bg-gradient-to-r from-cortex-cyan via-neural-500 to-cortex-violet">Decision-Making</span>
+        </h2>
+        <p class="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed">
+          Comprehensive, exact-syllabus revision notes engineered into playable experiments (Iowa Gambling Task, Eriksen Flanker Task), cortical anatomy explorers, neurotransmitter circuits, and active-recall flashcards.
+        </p>
+
+        <!-- Quick Jump Feature Badges -->
+        <div class="pt-2 flex flex-wrap gap-2 text-[11px] sm:text-xs">
+          <button onclick="scrollToId('brain-basics')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-cortex-cyan hover:border-cortex-cyan transition flex items-center gap-1.5">
+            <i class="fa-solid fa-layer-group text-cortex-cyan"></i> 5 Core Units
+          </button>
+          <button onclick="scrollToId('igt-lab')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-cortex-amber hover:border-cortex-amber transition flex items-center gap-1.5">
+            <i class="fa-solid fa-cards text-cortex-amber"></i> Iowa Gambling Task
+          </button>
+          <button onclick="scrollToId('flanker-lab')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-cortex-emerald hover:border-cortex-emerald transition flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-left-right text-cortex-emerald"></i> Eriksen Flanker Lab
+          </button>
+          <button onclick="scrollToId('flashcard-deck')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-cortex-violet hover:border-cortex-violet transition flex items-center gap-1.5">
+            <i class="fa-solid fa-clone text-cortex-violet"></i> 24 Flashcards
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="brain-basics" class="space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-cyan font-mono">Module 01</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">1. Brain Basics, Neurons, and How the Brain Develops</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cortex-cyan">
+          <i class="fa-solid fa-dna text-lg sm:text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Intro Overview -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          To understand how we make choices, we first have to understand the physical machine running the show. The brain is built from billions of interconnected cells that communicate using electrical pulses and chemical messengers. It does not arrive fully built at birth; it spends over two decades wiring, trimming, and fine-tuning its connections.
+        </p>
+      </div>
+
+      <!-- Three Main Evolutionary Parts & Four Lobes Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Three Evolutionary Parts -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4 h-full">
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-sitemap text-cortex-cyan"></i>
+              The Three Main Evolutionary Parts
+            </h4>
+            <div class="space-y-3 text-xs sm:text-sm text-slate-300">
+              <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-cortex-cyan block text-xs font-mono uppercase">1. Brainstem and Cerebellum</span>
+                <p class="mt-1 text-slate-300 text-xs leading-relaxed">
+                  The oldest, most primitive parts of the brain. They handle automatic survival functions like your heartbeat, breathing, balance, and basic reflexes.
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-cortex-violet block text-xs font-mono uppercase">2. Limbic System</span>
+                <p class="mt-1 text-slate-300 text-xs leading-relaxed">
+                  Buried under the cortex, this network manages emotions, stress responses, and survival drives like feeding and reproduction. Its two heavy hitters are the <strong class="text-white">hippocampus</strong> (vital for forming new memories, spatial navigation, and adult neurogenesis) and the <strong class="text-white">amygdala</strong> (an almond-shaped structure that tags events with emotion and fear).
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-cortex-emerald block text-xs font-mono uppercase">3. Cerebral Cortex</span>
+                <p class="mt-1 text-slate-300 text-xs leading-relaxed">
+                  The wrinkled outer "grey matter" layer made of six distinct cellular sheets, divided into two hemispheres by the <strong class="text-white">longitudinal fissure</strong> and joined in the middle by the <strong class="text-white">corpus callosum</strong>. Its bumps are called <strong class="text-white">gyri</strong> and its grooves are called <strong class="text-white">sulci</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Four Cortical Lobes Explorer -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4 h-full flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-shapes text-cortex-amber"></i>
+                  The Four Cortical Lobes
+                </h4>
+                <span class="text-[11px] font-mono text-slate-400">Click to Inspect</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Select a lobe to see anatomical boundaries and functional specializations.</p>
+
+              <!-- Lobe Selector Tabs -->
+              <div class="grid grid-cols-2 gap-2 mt-4">
+                <button onclick="selectLobe('frontal')" id="lobeBtn-frontal" class="lobe-btn p-2.5 rounded-xl text-left border bg-neural-600/30 border-neural-500 text-white transition text-xs font-medium">
+                  <i class="fa-solid fa-shield text-cortex-cyan mr-1.5"></i> Frontal Lobe
+                </button>
+                <button onclick="selectLobe('parietal')" id="lobeBtn-parietal" class="lobe-btn p-2.5 rounded-xl text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition text-xs font-medium">
+                  <i class="fa-solid fa-hand text-cortex-amber mr-1.5"></i> Parietal Lobe
+                </button>
+                <button onclick="selectLobe('occipital')" id="lobeBtn-occipital" class="lobe-btn p-2.5 rounded-xl text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition text-xs font-medium">
+                  <i class="fa-solid fa-eye text-cortex-violet mr-1.5"></i> Occipital Lobe
+                </button>
+                <button onclick="selectLobe('temporal')" id="lobeBtn-temporal" class="lobe-btn p-2.5 rounded-xl text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition text-xs font-medium">
+                  <i class="fa-solid fa-ear-listen text-cortex-emerald mr-1.5"></i> Temporal Lobe
+                </button>
+              </div>
+
+              <!-- Lobe Detail Display Box -->
+              <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span id="lobeTitle" class="text-xs font-bold text-cortex-cyan uppercase tracking-wider font-mono">Frontal Lobe</span>
+                  <span id="lobeBoundary" class="text-[10px] text-slate-400 font-mono">Separated by central sulcus</span>
+                </div>
+                <p id="lobeDescription" class="text-xs text-slate-300 leading-relaxed">
+                  Located at the front, separated from the parietal lobe by the central sulcus. It is the seat of personality and executive functions: planning ahead, impulse control, social rules, and decision-making.
+                </p>
+              </div>
+            </div>
+
+            <!-- Two-Point Clip Test Interactive Demo -->
+            <div class="mt-4 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-2">
+              <span class="font-bold text-amber-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-paperclip"></i> Everyday Example: The Two-Point Clip Test
+              </span>
+              <p class="text-slate-300 text-[11px] leading-relaxed">
+                If you unbend a paper clip so it has two points a few millimeters apart, you can easily tell there are two distinct points touching your sensitive fingertip or tongue. But if you press those same two points against your upper arm or back, your parietal cortex only feels a single dull press because sensory receptors there are spaced much farther apart.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neurons vs Glia & Synaptic Transmission -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Brain Cells (Neurons vs. Glia) -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-nodes text-cortex-emerald"></i>
+            Brain Cells (Neurons vs. Glia)
+          </h4>
+          <div class="space-y-3 text-xs sm:text-sm text-slate-300">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-xs text-cortex-emerald">Neurons (~85-100 billion):</strong>
+              <p class="text-xs text-slate-300 mt-1">
+                The primary information processors. They consist of a <strong>soma</strong> (cell body holding the nucleus), branching <strong>dendrites</strong> (which receive incoming messages), and a long <strong>axon</strong> (which carries electrical impulses away toward other cells).
+              </p>
+              <div class="mt-2 text-[11px] text-slate-400 space-y-1">
+                <p>• <strong>Sensory neurons:</strong> bring environmental inputs inward.</p>
+                <p>• <strong>Motor neurons:</strong> send movement commands to muscles.</p>
+                <p>• <strong>Pyramidal neurons:</strong> pyramid-shaped excitatory cells heavily involved in advanced thinking and decision-making.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-xs text-cortex-violet">Glial Cells:</strong>
+              <p class="text-xs text-slate-300 mt-1">
+                The non-electrical support staff that outnumber neurons.
+              </p>
+              <div class="mt-2 text-[11px] text-slate-400 space-y-1">
+                <p>• <strong>Schwann cells:</strong> wrap axons in a fatty <em>myelin sheath</em> (leaving tiny gaps called <em>nodes of Ranvier</em>) to make electrical signals leap faster.</p>
+                <p>• <strong>Astrocytes:</strong> maintain chemical balance and support new cell growth.</p>
+                <p>• <strong>Microglia:</strong> act as waste-scavengers and fight inflammation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How Neurons Talk (Synaptic Transmission) Simulator -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <h4 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-cortex-amber"></i>
+                How Neurons Talk (Synaptic Transmission)
+              </h4>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">Interactive</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Step through the 4 phases of communication between neurons.</p>
+
+            <!-- Stepper Container -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span id="synapseStepBadge" class="text-cortex-amber font-bold">STEP 1 OF 4</span>
+                <span class="text-slate-500">Action Potential -> Receptor</span>
+              </div>
+              <h5 id="synapseStepTitle" class="text-sm font-bold text-white">1. Electrical Action Potential</h5>
+              <p id="synapseStepDesc" class="text-xs text-slate-300 leading-relaxed min-h-[48px]">
+                An electrical action potential travels down the presynaptic axon to the terminal button. Communication inside a neuron is electrical.
+              </p>
+              
+              <div class="flex gap-2 pt-2">
+                <button onclick="prevSynapseStep()" class="flex-1 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition">
+                  <i class="fa-solid fa-chevron-left mr-1"></i> Prev Step
+                </button>
+                <button onclick="nextSynapseStep()" class="flex-1 py-1.5 rounded-lg bg-cortex-amber hover:bg-amber-500 text-xs text-slate-950 font-bold transition">
+                  Next Step <i class="fa-solid fa-chevron-right ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phineas Gage Historic Case Callout -->
+          <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-900/60 text-xs space-y-1.5">
+            <span class="font-bold text-rose-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-user-injured"></i> Everyday Example: Phineas Gage (1848)
+            </span>
+            <p class="text-slate-300 text-[11px] leading-relaxed">
+              In 1848, a blasting explosion shot an iron rod through railroad worker Phineas Gage's frontal lobe. He survived, walked, and talked normally, but his personality shifted dramatically: he went from being reliable and polite to impulsive, rude, and incapable of sticking to plans. This historic case proved the frontal lobe controls our personality and social decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brain Development Timeline & Topographic Networks -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
+        <h4 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-timeline text-cortex-cyan"></i>
+          Brain Development Timeline: Over Two Decades of Wiring
+        </h4>
+
+        <!-- Timeline Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="font-bold text-cortex-cyan font-mono text-[11px]">1. PRENATAL</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Starts 5 weeks after conception; neurons multiply rapidly up to 100 billion, migrate to assigned zones, and begin forming synapses and early myelin.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="font-bold text-cortex-emerald font-mono text-[11px]">2. NEWBORN</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Brain weighs 350-400g. Synapses are strongest in survival and sensory areas (vision and hearing myelinate quickly).
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="font-bold text-cortex-amber font-mono text-[11px]">3. CHILDHOOD</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Hits ~90% adult volume by age 7. Rapid <strong>synaptogenesis</strong> (building connections) followed by <strong>synaptic pruning</strong> (chopping unused links).
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="font-bold text-cortex-rose font-mono text-[11px]">4. ADOLESCENCE</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Total volume peaks at 11-14. Dopamine inputs to frontal areas surge; aggressive pruning and myelination streamline circuits.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="font-bold text-cortex-violet font-mono text-[11px]">5. ADULTHOOD</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Prefrontal cortex finishes maturing around age 25. Plasticity never stops; brains reshape connections throughout entire lives.
+            </p>
+          </div>
+        </div>
+
+        <!-- Topographic Organization & How We Study Networks -->
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2">
+          <span class="font-bold text-white block">Topographic Organization and How We Study Networks:</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px] text-slate-300">
+            <div>
+              <strong class="text-cortex-cyan block">Topographic mapping:</strong>
+              Neighboring points in the body or environment connect to neighboring points in the brain, keeping spatial layouts organized and saving wiring energy.
+            </div>
+            <div>
+              <strong class="text-cortex-violet block">Anatomical tract tracing:</strong>
+              Injects fluorescent tracers into animal brains to track physical pathways under a microscope with high precision.
+            </div>
+            <div>
+              <strong class="text-cortex-amber block">ERP/EEG:</strong>
+              Records electrical waves on the human scalp during tasks to time-lock specific choices down to the millisecond.
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Takeaways 1 -->
+        <div class="p-3 rounded-xl bg-neural-950/70 border border-neural-800 text-xs space-y-1">
+          <span class="font-bold text-neural-400 uppercase tracking-wide text-[10px] font-mono">Module 1 Key Takeaways</span>
+          <ul class="list-disc list-inside text-slate-300 text-[11px] space-y-0.5">
+            <li>Your brain builds most of its 100 billion neurons before birth, but cognitive development is mostly about pruning and insulating (myelinating) those connections later on.</li>
+            <li>Communication inside a neuron is electrical (action potential), but communication between neurons is chemical (neurotransmitters across the synapse).</li>
+            <li>The cerebral cortex is mapped topographically, meaning physical relationships in the real world are preserved as spatial maps in the brain.</li>
+            <li>The prefrontal cortex matures last, taking until about age 25 to finalize its wiring.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="prefrontal-cortex" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-violet font-mono">Module 02</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">2. The Prefrontal Cortex: The Brain's CEO and Decision Engine</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cortex-violet">
+          <i class="fa-solid fa-crown text-lg sm:text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Intro Overview -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-3">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          The prefrontal cortex (PFC) sits at the very front of the frontal lobe and serves as the brain's executive control center. While older sensory areas just register what is happening right now, your PFC lets you hold goals in mind, imagine things that do not exist yet, weigh future consequences, and choose your actions deliberately.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+            <strong class="text-cortex-cyan block">Anatomical Definition:</strong> Defined as the region receiving inputs from the <strong>mediodorsal nucleus of the thalamus</strong>.
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+            <strong class="text-cortex-violet block">Massive Expansion:</strong> Makes up about <strong>29% of the entire human cortex</strong> (evolutionarily newest in mammals).
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+            <strong class="text-cortex-amber block">25-Year Maturation:</strong> Higher-order strategic planning and impulse control develop much later than basic memory or movement.
+          </div>
+        </div>
+      </div>
+
+      <!-- Subregions & Dr. Stacey Bedwell Anterior-Posterior Gradient Explorer -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Subregions Breakdown -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-cubes-stacked text-cortex-cyan"></i>
+            Subregions and Their Jobs
+          </h4>
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-cortex-cyan text-sm block font-semibold">Medial PFC</strong>
+              <p class="text-slate-300 mt-1">Focuses on motivation, drive, and focused attention.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-cortex-amber text-sm block font-semibold">Orbital PFC (Orbitofrontal)</strong>
+              <p class="text-slate-300 mt-1">Acts as your impulse control center, keeping risky or inappropriate behaviors in check.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-cortex-violet text-sm block font-semibold">Lateral PFC</strong>
+              <p class="text-slate-300 mt-1">Manages working memory, goal-directed planning, and complex multi-step strategies.</p>
+            </div>
+          </div>
+
+          <!-- Cross-Species: Rat Model -->
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-1.5">
+            <strong class="text-emerald-400 block font-semibold">Cross-Species Comparisons (The Rat Model):</strong>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              Humans and primates have a specialized "granular" prefrontal cortex that rats physically lack. However, the medial prefrontal cortex of rats shows functional and anatomical homology to primate prefrontal regions. This means studying medial PFC circuits in rats gives us reliable clues about human issues like addiction, depression, and psychosis.
+            </p>
+          </div>
+        </div>
+
+        <!-- Dr. Stacey Bedwell's Anterior-Posterior Connectivity Gradient Interactive Lab -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-cortex-violet/20 text-cortex-violet font-mono text-xs font-semibold">
+                NEURAL ARCHITECTURE LAB
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Dr. Stacey Bedwell</span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-2">The Anterior-Posterior Connectivity Gradient</h4>
+            <p class="text-xs text-slate-400 mt-1">
+              Toggle along the prefrontal cortex axis to see how wiring transitions from classic matched topographical inputs into complex, non-aligned networks.
+            </p>
+
+            <!-- Gradient Selector Buttons -->
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <button onclick="selectGradientZone('posterior')" id="gradBtn-posterior" class="grad-btn p-3 rounded-xl border bg-slate-800/80 border-slate-700 text-left text-xs transition">
+                <span class="font-bold text-slate-300 block">Posterior (Rear) PFC</span>
+                <span class="text-[10px] text-slate-400">Aligned, topographically matched</span>
+              </button>
+              <button onclick="selectGradientZone('anterior')" id="gradBtn-anterior" class="grad-btn p-3 rounded-xl border bg-cortex-violet/30 border-cortex-violet text-left text-xs transition text-white">
+                <span class="font-bold text-cortex-violet block">Anterior (Front Pole)</span>
+                <span class="text-[10px] text-purple-200">Non-aligned, overlapping, abstract</span>
+              </button>
+            </div>
+
+            <!-- Gradient Visual Display -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span id="gradVisualTitle" class="text-cortex-violet font-bold uppercase">Anterior Pole: Abstract Evaluating</span>
+                <span class="text-slate-500">Highest Hierarchy</span>
+              </div>
+              <p id="gradVisualDesc" class="text-xs text-slate-300 leading-relaxed min-h-[50px]">
+                Research by Dr. Stacey Bedwell shows that as you move toward the anterior (front pole) of the PFC, wiring becomes non-aligned, overlapping, and far more complex. This matches cognitive findings: the anterior pole sits at the very top of the hierarchy, handling the most abstract, open-ended evaluations.
+              </p>
+            </div>
+          </div>
+
+          <!-- Filtering Frustration Everyday Example -->
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1.5">
+            <span class="font-bold text-amber-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-briefcase"></i> Everyday Example: Filtering Frustration at Work
+            </span>
+            <p class="text-slate-300 text-[11px] leading-relaxed">
+              If your boss gives an unfair instruction, your immediate emotional impulse might be to shout. An intact PFC applies top-down inhibition, weighing the consequences of getting fired against the satisfaction of venting, allowing you to stay calm and respond professionally.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theories of PFC & Four Everyday Types of Decisions -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Core Theories of PFC Function -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-gears text-cortex-emerald"></i>
+            Core Theories of PFC Function
+          </h4>
+          <div class="space-y-3 text-xs text-slate-300">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-emerald">Integrative Association Hub:</strong>
+              <p class="mt-1">The PFC does not perform one single job; it gathers sensory data, emotions, and past memories from across the whole brain to construct an abstract mental workspace.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-cyan">Dynamic Filtering Theory:</strong>
+              <p class="mt-1">The PFC acts as a filter, dampening irrelevant distractions and emotional noise so you can focus on the goal at hand.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-violet">Miller and Cohen's Integrative Theory:</strong>
+              <p class="mt-1">The PFC builds top-down rules and goals, sending signals back out to other brain regions to steer your thoughts and physical actions.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four Everyday Types of Decisions -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-cortex-amber"></i>
+            Four Everyday Types of Decisions
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-cyan block">1. Routine Choices</span>
+              <p class="text-slate-400 text-[11px] mt-1">Everyday low-stakes decisions where you have little control over the options (e.g., picking a brand of milk off a grocery shelf).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-emerald block">2. Making Outcomes</span>
+              <p class="text-slate-400 text-[11px] mt-1">Decisions where your personal effort and self-efficacy directly determine success (e.g., planning a project schedule).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-rose block">3. Risky Decisions</span>
+              <p class="text-slate-400 text-[11px] mt-1">Choices with uncertain, unpredictable outcomes. Adolescents make significantly more risky choices because their PFC wiring is still undergoing heavy pruning and myelination.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-amber block">4. Strategic Decisions</span>
+              <p class="text-slate-400 text-[11px] mt-1">High-stakes life choices (e.g., changing jobs, buying a house) that require pulling up past knowledge to calculate long-term costs and rewards.</p>
+            </div>
+          </div>
+
+          <!-- Key Takeaways 2 -->
+          <div class="p-3 rounded-xl bg-neural-950/70 border border-neural-800 text-xs space-y-1">
+            <span class="font-bold text-neural-400 uppercase tracking-wide text-[10px] font-mono">Module 2 Key Takeaways</span>
+            <ul class="list-disc list-inside text-slate-300 text-[11px] space-y-0.5">
+              <li>The human PFC takes up nearly a third of the cortex and takes roughly 25 years to fully wire up.</li>
+              <li>The PFC acts as an association engine, integrating sensory inputs, past memories, and emotional states to run top-down rules.</li>
+              <li>Prefrontal anatomy changes across an anterior-to-posterior gradient, with the front-most areas handling abstract reasoning.</li>
+              <li>Teenagers naturally lean into risky decision-making because their prefrontal inhibitory circuits are still developing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="neurotransmitters-stress" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-emerald font-mono">Module 03</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">3. Neurotransmitters, Stress, and Decision Networks</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cortex-emerald">
+          <i class="fa-solid fa-flask-vial text-lg sm:text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Intro Overview -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-3">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Decisions are not made in a vacuum; they are powered by brain-wide chemical systems and modulated by stress. While amino acid transmitters act like rapid on/off switches, neuromodulator systems project broadly across the cortex to adjust mood, attention, arousal, and value.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+            <strong class="text-white block font-mono text-cortex-emerald">Amino Acids (Local Switches):</strong>
+            <p class="text-slate-300 text-xs mt-1">The primary local on/off switches. Excitatory transmitters act like an accelerator pedal, while inhibitory transmitters act like a brake to keep brain activity balanced.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+            <strong class="text-white block font-mono text-cortex-cyan">Neurotransmitter Systems (Broad Modulators):</strong>
+            <p class="text-slate-300 text-xs mt-1">Produced by small groups of cells subcortically (brainstem and midbrain) whose long axons spray outward across the entire cortex to modulate brain states.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Three Big Modulators & The HPA Axis -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- The Three Big Modulators -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-vial-circle-check text-cortex-cyan"></i>
+            The Three Big Modulators in Decision-Making
+          </h4>
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-cortex-cyan text-sm">Serotonin (5-HT)</strong>
+                <span class="text-[10px] font-mono text-slate-400">Raphe Nuclei Origin</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed text-xs">
+                Originates in brainstem clusters (like the raphe nuclei in the midbrain, pons, and medulla) and projects to the limbic system, thalamus, and cortex. It regulates mood, sleep, appetite, and the creation of new memories. Low serotonin impairs new memory formation and is tied to depression; SSRIs treat depression by blocking its reuptake back into the presynaptic neuron, leaving more serotonin in the cleft.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-cortex-amber text-sm">Noradrenaline (Norepinephrine)</strong>
+                <span class="text-[10px] font-mono text-slate-400">Locus Coeruleus Origin</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed text-xs">
+                Produced in the locus coeruleus and projects straight to the thalamus, hypothalamus, and PFC. It drives arousal, vigilance, and focused attention. Noradrenergic neurons shut off during REM sleep; disruptions in this system are heavily linked to attention deficits in ADHD.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-cortex-emerald text-sm">Dopamine (DA)</strong>
+                <span class="text-[10px] font-mono text-slate-400">3 Major Pathways</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed text-xs">
+                Has three major pathways (nigrostriatal, mesolimbic, and mesocortical). It is the chemical engine of motivation, reward anticipation, novelty seeking, and working memory. Antipsychotics often work as D2-receptor blockers (antagonists) to quiet down overactive dopamine transmission.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The HPA Axis and Stress Response -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div>
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-fire text-rose-400"></i>
+              The HPA Axis and the Stress Response
+            </h4>
+            <p class="text-xs text-slate-400 mt-1">The physiological feedback loop governing emergency decision modes.</p>
+
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3 text-xs">
+              <div class="flex items-center justify-between text-center font-mono text-[11px]">
+                <span class="p-2 rounded bg-rose-950 border border-rose-800 text-rose-300">Hypothalamus</span>
+                <i class="fa-solid fa-arrow-right text-slate-600"></i>
+                <span class="p-2 rounded bg-amber-950 border border-amber-800 text-amber-300">Pituitary</span>
+                <i class="fa-solid fa-arrow-right text-slate-600"></i>
+                <span class="p-2 rounded bg-emerald-950 border border-emerald-800 text-emerald-300">Adrenals</span>
+              </div>
+
+              <p class="text-slate-300 text-xs leading-relaxed">
+                When the amygdala detects a threat, it signals the hypothalamus, activating the HPA axis to release <strong class="text-white">cortisol</strong> into the bloodstream.
+              </p>
+
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Cortisol floods the body with glucose for a fight-or-flight response and teams up with adrenaline to forge vivid, high-priority memories (<strong class="text-amber-300">flashbulb memories</strong>) so you remember how to avoid that danger later.
+              </p>
+            </div>
+          </div>
+
+          <!-- Flashbulb Stress Memories Everyday Example -->
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1.5">
+            <span class="font-bold text-rose-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-dog"></i> Everyday Example: Flashbulb Stress Memories
+            </span>
+            <p class="text-slate-300 text-[11px] leading-relaxed">
+              If you are attacked by an aggressive dog on a specific jogging trail, your HPA axis floods your brain with cortisol. That surge burns the sensory details of the trail into your memory, ensuring that the next time you approach that corner, your rational and experiential systems steer you down a different path.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cognitive Decision Models & Phone-Ringing Processing Cascade -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Cognitive Decision Models -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-code-compare text-cortex-amber"></i>
+            Cognitive Decision Models
+          </h4>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <strong class="text-white block font-mono text-cortex-amber">Epstein's Cognitive-Experiential Self-Theory:</strong>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                We have two parallel decision engines. The <strong>rational system</strong> is slow, analytical, conscious, effortful, and relies on the PFC and hippocampus. The <strong>experiential system</strong> is fast, automatic, emotional, intuitive, and driven by the amygdala and striatum.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <strong class="text-white block font-mono text-cortex-cyan">Shallice's Supervisory System:</strong>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                Everyday routine tasks run on <strong>contention scheduling</strong> (unconscious, learned action scripts called schemas). When you encounter a completely new or conflicting problem, the <strong>Supervisory Attentional System (SAS)</strong> intervenes to deliberately steer behavior.
+              </p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <strong class="text-white block font-mono text-cortex-violet">Stuss & Benson's Hierarchy:</strong>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                A three-tier pyramid: automatic sensory routines at the bottom, goal-directed executive control in the middle, and <strong>metacognition</strong> (self-reflection on your own thought processes) at the very top.
+              </p>
+            </div>
+          </div>
+
+          <!-- Red Traffic Light Example -->
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1">
+            <span class="font-bold text-amber-300 block">The Red Traffic Light (Contention vs SAS):</span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              When a red light flashes, your brain executes a practiced schema via contention scheduling—foot off gas, onto brake. But if an ambulance speeds the wrong way through the intersection, your SAS steps in instantly to override the green light and brake.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Lab: The Phone-Ringing Processing Cascade -->
+        <div class="lg:col-span-6 glass-card rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-cortex-emerald/20 text-cortex-emerald font-mono text-xs font-semibold">
+                INTERACTIVE CASCADE LAB
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Hierarchical Control</span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-2">The Phone-Ringing Processing Cascade</h4>
+            <p class="text-xs text-slate-400 mt-1">Click each level to simulate how neural processing ascends from basic motor habit to anterior prefrontal evaluation.</p>
+
+            <!-- Cascade Level Buttons -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+              <button onclick="selectCascadeLevel(1)" id="cascBtn-1" class="casc-btn p-2 rounded-xl border bg-cortex-emerald/30 border-cortex-emerald text-white text-xs font-bold text-center transition">
+                Level 1
+              </button>
+              <button onclick="selectCascadeLevel(2)" id="cascBtn-2" class="casc-btn p-2 rounded-xl border bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-bold text-center transition">
+                Level 2
+              </button>
+              <button onclick="selectCascadeLevel(3)" id="cascBtn-3" class="casc-btn p-2 rounded-xl border bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-bold text-center transition">
+                Level 3
+              </button>
+              <button onclick="selectCascadeLevel(4)" id="cascBtn-4" class="casc-btn p-2 rounded-xl border bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-bold text-center transition">
+                Level 4
+              </button>
+            </div>
+
+            <!-- Cascade Details Display -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span id="cascadeLevelTitle" class="text-xs font-bold text-cortex-emerald uppercase tracking-wider font-mono">Level 1 (Sensory / Premotor)</span>
+                <span id="cascadeAnatomy" class="text-[10px] text-slate-400 font-mono">Automatic Reach</span>
+              </div>
+              <p id="cascadeLevelDesc" class="text-xs text-slate-300 leading-relaxed min-h-[50px]">
+                You hear a generic notification ping and automatically pick up your phone.
+              </p>
+            </div>
+          </div>
+
+          <!-- Key Takeaways 3 -->
+          <div class="p-3 rounded-xl bg-neural-950/70 border border-neural-800 text-xs space-y-1">
+            <span class="font-bold text-neural-400 uppercase tracking-wide text-[10px] font-mono">Module 3 Key Takeaways</span>
+            <ul class="list-disc list-inside text-slate-300 text-[11px] space-y-0.5">
+              <li>Local amino acids provide fast on/off signaling, while subcortical systems (DA, 5-HT, NA) broadcast mood and reward states brain-wide.</li>
+              <li>Epstein's model splits thinking into a fast "experiential" system and a deliberate "rational" system.</li>
+              <li>Frontal damage leaves automatic schemas intact (contention scheduling works) but breaks ability to adapt to brand-new situations (SAS fails).</li>
+              <li>Decision control runs from simple physical actions at the back to abstract context and self-reflection at the front.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="decision-styles" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-amber font-mono">Module 04</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">4. Decision-Making Styles and Childhood Influences</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cortex-amber">
+          <i class="fa-solid fa-people-arrows text-lg sm:text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Intro & Definition -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-3">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          People approach choices using characteristic habits known as decision-making styles. These styles are not hardcoded at birth; they are shaped throughout childhood by attachment, environmental stability, and social interactions.
+        </p>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+          <strong class="text-cortex-amber block font-mono">Defining Decision-Making Style:</strong>
+          <span class="text-slate-300">A habitual, learned pattern a person uses when gathering information, weighing options, and making choices.</span>
+        </div>
+      </div>
+
+      <!-- Early Milestones & Scott & Bruce 5 GDMS Styles -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Early Theoretical Milestones -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-landmark text-cortex-cyan"></i>
+            Early Theoretical Milestones
+          </h4>
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-cyan">McKinney & Keene (1974):</strong>
+              <p class="text-slate-300 mt-1">Split thinkers into <strong>systematic</strong> (structured, logical step-followers) versus <strong>intuitive</strong> (exploratory, trial-and-error learners).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-emerald">Driver (1979):</strong>
+              <p class="text-slate-300 mt-1">Proposed that styles are learned behaviors based on how much data someone collects and how many alternatives they review, suggesting people have primary and secondary styles.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-white block font-mono text-cortex-violet">Harren (1979):</strong>
+              <p class="text-slate-300 mt-1">Established three core approaches: <strong>Rational</strong> (takes personal ownership, plans logically), <strong>Intuitive</strong> (takes personal ownership, follows internal gut feelings), and <strong>Dependent</strong> (defers ownership onto other people).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scott & Bruce GDMS & Car Buyer Everyday Example -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-pie text-cortex-amber"></i>
+              Scott & Bruce's Five GDMS Styles
+            </h4>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">General Decision Making Style</span>
+          </div>
+
+          <!-- 5 Styles Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-cyan block">1. Rational</span>
+              <p class="text-slate-400 text-[11px] mt-1">Methodical, slow, gathers all facts, and systematically weighs alternatives.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-emerald block">2. Intuitive</span>
+              <p class="text-slate-400 text-[11px] mt-1">Relies heavily on gut hunches, feelings, and what "feels right" in the moment.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-cortex-violet block">3. Dependent</span>
+              <p class="text-slate-400 text-[11px] mt-1">Uncomfortable deciding alone; constantly seeks advice, validation, and direction from others.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+              <span class="font-bold text-rose-400 block">4. Avoidant</span>
+              <p class="text-slate-400 text-[11px] mt-1">Feels anxious about choices; procrastinates and only decides when forced by deadlines.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 sm:col-span-2 lg:col-span-2">
+              <span class="font-bold text-cortex-amber block">5. Spontaneous</span>
+              <p class="text-slate-400 text-[11px] mt-1">Impulsive and fast; makes snap choices just to get through the process without overthinking.</p>
+            </div>
+          </div>
+
+          <!-- Everyday Example: Buying a Car across the 5 styles -->
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-1.5">
+            <span class="font-bold text-amber-300 block">Everyday Example: Buying a Car Across the Five Styles</span>
+            <ul class="text-[11px] text-slate-300 space-y-1">
+              <li>• <strong>Rational:</strong> Builds a spreadsheet comparing fuel economy and safety ratings.</li>
+              <li>• <strong>Intuitive:</strong> Sits in the driver's seat and buys it because it "feels right".</li>
+              <li>• <strong>Dependent:</strong> Brings three family members along to choose for them.</li>
+              <li>• <strong>Avoidant:</strong> Leaves the broken car in the driveway for months rather than face the dealership.</li>
+              <li>• <strong>Spontaneous:</strong> Signs the paperwork on the first car parked by the door just to get it over with.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trauma and Dr. Bedwell Sibling Aggression Research -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
+        <h4 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-child-reaching text-rose-400"></i>
+          How Childhood Trauma & Sibling Conflict Alter the Machinery
+        </h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <strong class="text-rose-400 font-mono text-xs block">Childhood Trauma Dose-Response:</strong>
+            <p class="text-slate-300 leading-relaxed text-[11px]">
+              The PFC has an extended developmental window, making its developing synapses vulnerable to severe stressors. Repeated childhood trauma creates a "dose-response" effect: frequent trauma chronically dysregulates the HPA axis, flooding the system with cortisol and reducing synaptic plasticity. Early trauma impairs executive functions and working memory, often pushing adults toward extreme avoidant or purely intuitive styles.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <strong class="text-amber-400 font-mono text-xs block">Dr. Bedwell's Lab: Sibling Aggression:</strong>
+            <p class="text-slate-300 leading-relaxed text-[11px]">
+              Sibling conflict is common, but using aggression to establish dominance and hoard possessions alters prefrontal development. <strong class="text-white">Counterintuitively, it is the perpetrators who used aggression to maintain dominance who are significantly more likely to display an avoidant decision-making style as adults</strong>, driven by underlying social anxiety and fear of failure.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <strong class="text-cortex-cyan font-mono text-xs block">The Crucial Task Distinction:</strong>
+            <p class="text-slate-300 leading-relaxed text-[11px]">
+              While general trauma increases real-time reckless behavior in everyday life, sibling aggression does not predict risky decision-making on laboratory tasks, showing that everyday family conflict affects decision styles differently than major trauma.
+            </p>
+          </div>
+        </div>
+
+        <!-- Key Takeaways 4 -->
+        <div class="p-3 rounded-xl bg-neural-950/70 border border-neural-800 text-xs space-y-1">
+          <span class="font-bold text-neural-400 uppercase tracking-wide text-[10px] font-mono">Module 4 Key Takeaways</span>
+          <ul class="list-disc list-inside text-slate-300 text-[11px] space-y-0.5">
+            <li>Decision styles are learned behavioral habits, and most people blend styles depending on the situation.</li>
+            <li>Chronic avoidance of decisions is strongly linked to higher anxiety and worse mental health outcomes (Bavol'ar & Orosova, 2015).</li>
+            <li>Severe early trauma alters the physical development of the HPA axis and prefrontal cortex, locking people into rigid cognitive patterns.</li>
+            <li>Childhood sibling aggression specifically predicts adult avoidance (in those driven by dominance), but it does not drive risky gambling choices.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="clinical-deficits" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-rose-400 font-mono">Module 05</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">5. Decision Deficits and Clinical Conditions</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-rose-400">
+          <i class="fa-solid fa-triangle-exclamation text-lg sm:text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Intro Overview -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-2">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          A decision-making deficit occurs when brain circuits are disrupted, leaving an individual unable to adapt to changing rules, weigh rewards against punishments, or resist impulsive actions. Comparing these breakdowns across clinical conditions shows how fragile the prefrontal network really is.
+        </p>
+      </div>
+
+      <!-- Clinical Conditions Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <!-- Substance Use Disorder -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-rose-400 font-bold font-mono">Substance Use (Stimulants)</span>
+            <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-mono">Rigid Habits</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Chronic cocaine or methamphetamine abuse dumps massive amounts of dopamine into the striatum and prefrontal circuits. This accelerates the transition from flexible, goal-directed behavior into rigid, automated habits.
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px]">
+            <strong class="text-amber-300 block">Reversal Learning Deficit:</strong> Patients become "stuck"; even when rules change and a behavior causes immediate harm, their brains fail to update, keeping them locked in compulsive drug-seeking.
+          </div>
+        </div>
+
+        <!-- Schizophrenia -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-cortex-cyan font-bold font-mono">Schizophrenia</span>
+            <span class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-mono">Connectivity</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Characterized by positive symptoms (delusions, hallucinations) and negative symptoms (blunted affect, withdrawal). Structural scans show reduced prefrontal white matter volume, altered cellular organization, and smaller frontal lobes.
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px]">
+            <strong class="text-cyan-300 block">Jumping to Conclusions:</strong> Excessive dopamine in the striatum impairs how the brain integrates cortical information, causing patients to "jump to conclusions" based on very little data and persist with bad choices.
+          </div>
+        </div>
+
+        <!-- Autism Spectrum Conditions -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-cortex-emerald font-bold font-mono">Autism Spectrum</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono">Win-Stay-Lose-Shift</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Adults with autism report that decision-making is mentally exhausting, overwhelming, and anxiety-provoking, often leading to decision avoidance. Quick decisions or sudden disruptions to routines are especially difficult.
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px]">
+            <strong class="text-emerald-300 block">Feedback Rigidity:</strong> On experimental tasks, they often rely heavily on a rigid win-stay-lose-shift strategy, working harder for rewards while showing reduced internal sensitivity to reward feedback.
+          </div>
+        </div>
+
+        <!-- Major Depressive Disorder -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-cortex-violet font-bold font-mono">Major Depression</span>
+            <span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-mono">Frontostriatal</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Characterized by blunted striatal and prefrontal responses to positive rewards, along with low serotonin transmission in the PFC. Anhedonia (inability to feel pleasure) is directly tied to frontostriatal reward circuit breakdown. Depleted serotonin leads to cognitive rigidity.
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] space-y-1">
+            <p><strong class="text-purple-300">Depressive Realism:</strong> Mild depression sometimes evaluates lack of control more accurately than non-depressed people.</p>
+            <p><strong class="text-purple-300">Analytical Rumination:</strong> May have evolved to analyze complex social dilemmas.</p>
+          </div>
+        </div>
+
+        <!-- Psychopathy -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-rose-400 font-bold font-mono">Psychopathy / APD</span>
+            <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-mono">Amygdala-PFC</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Marked by shallow emotional affect, callousness, impulsivity, and grandiosity. Driven by a functional disconnect between the amygdala (fear and punishment) and the prefrontal cortex (anticipating future consequences).
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px]">
+            <strong class="text-rose-300 block">Zero Warning Signal:</strong> Because they do not feel the anticipatory emotional warning signal of punishment, they make reckless choices focused purely on immediate gratification.
+          </div>
+        </div>
+
+        <!-- Cognitive Remediation Therapy (Rehabilitation) -->
+        <div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-cortex-amber font-bold font-mono">Rehabilitation (CRT)</span>
+            <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-mono">Neuroplasticity</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            While medication rarely restores damaged decision-making logic on its own, behavioral therapies like <strong>Cognitive Remediation Therapy (CRT)</strong> train the brain through targeted mental exercises to adopt alternative problem-solving strategies.
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px]">
+            <strong class="text-amber-300 block">Broken Traffic Light Example:</strong> If rules flip so green=stop and red=go, neurotypicals adapt quickly. Stimulant or schizophrenia patients keep driving through green and crashing due to frontostriatal inflexibility.
+          </div>
+        </div>
+      </div>
+
+      <div id="igt-lab" class="glass-card rounded-3xl p-5 sm:p-8 space-y-6 border border-cortex-amber/40 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs font-semibold">
+              <i class="fa-solid fa-dice"></i> LAB EXPERIMENT 01
+            </div>
+            <h4 class="text-lg sm:text-xl font-bold text-white mt-1">Iowa Gambling Task (IGT) Simulator</h4>
+            <p class="text-xs text-slate-400">Simulate real-world risk, reward, and somatic marker anticipation across 4 card decks.</p>
+          </div>
+          <!-- Bankroll Stats -->
+          <div class="flex items-center gap-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
+            <div>
+              <span class="text-[10px] font-mono text-slate-400 block uppercase">Bankroll</span>
+              <span id="igtBankroll" class="text-lg font-mono font-bold text-emerald-400">$2,000</span>
+            </div>
+            <div class="border-l border-slate-800 pl-4">
+              <span class="text-[10px] font-mono text-slate-400 block uppercase">Picks</span>
+              <span id="igtPicks" class="text-lg font-mono font-bold text-slate-200">0 / 25</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          Choose cards from any of the four decks below. Watch how rewards and sudden penalties affect your net bankroll. Healthy players develop gut feelings ("somatic markers") and shift to advantageous decks, whereas patients with frontal lobe or amygdala damage keep choosing disadvantageous decks.
+        </p>
+
+        <!-- 4 Card Decks -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- Deck A -->
+          <button onclick="pickIgtCard('A')" class="igt-deck p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-rose-500/40 hover:border-rose-400 transition transform hover:-translate-y-1 text-center shadow-lg group">
+            <span class="text-xs font-bold text-rose-400 font-mono block">DECK A</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Win $100</span>
+            <span class="text-[10px] text-rose-400/80 block mt-0.5">Frequent penalties</span>
+            <div class="mt-3 py-1 px-2 rounded-lg bg-rose-950/60 text-rose-300 text-[11px] font-semibold group-hover:bg-rose-900 transition">Draw Card</div>
+          </button>
+
+          <!-- Deck B -->
+          <button onclick="pickIgtCard('B')" class="igt-deck p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-rose-500/40 hover:border-rose-400 transition transform hover:-translate-y-1 text-center shadow-lg group">
+            <span class="text-xs font-bold text-rose-400 font-mono block">DECK B</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Win $100</span>
+            <span class="text-[10px] text-rose-400/80 block mt-0.5">Massive hidden penalty</span>
+            <div class="mt-3 py-1 px-2 rounded-lg bg-rose-950/60 text-rose-300 text-[11px] font-semibold group-hover:bg-rose-900 transition">Draw Card</div>
+          </button>
+
+          <!-- Deck C -->
+          <button onclick="pickIgtCard('C')" class="igt-deck p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-emerald-500/40 hover:border-emerald-400 transition transform hover:-translate-y-1 text-center shadow-lg group">
+            <span class="text-xs font-bold text-emerald-400 font-mono block">DECK C</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Win $50</span>
+            <span class="text-[10px] text-emerald-400/80 block mt-0.5">Tiny penalties</span>
+            <div class="mt-3 py-1 px-2 rounded-lg bg-emerald-950/60 text-emerald-300 text-[11px] font-semibold group-hover:bg-emerald-900 transition">Draw Card</div>
+          </button>
+
+          <!-- Deck D -->
+          <button onclick="pickIgtCard('D')" class="igt-deck p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-emerald-500/40 hover:border-emerald-400 transition transform hover:-translate-y-1 text-center shadow-lg group">
+            <span class="text-xs font-bold text-emerald-400 font-mono block">DECK D</span>
+            <span class="text-[11px] text-slate-400 block mt-1">Win $50</span>
+            <span class="text-[10px] text-emerald-400/80 block mt-0.5">Very low penalties</span>
+            <div class="mt-3 py-1 px-2 rounded-lg bg-emerald-950/60 text-emerald-300 text-[11px] font-semibold group-hover:bg-emerald-900 transition">Draw Card</div>
+          </button>
+        </div>
+
+        <!-- IGT Realtime Outcome Card -->
+        <div id="igtOutcomeCard" class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div id="igtOutcomeIcon" class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 text-lg">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+            </div>
+            <div>
+              <span id="igtOutcomeHeadline" class="text-white font-bold block text-sm">Draw a card to begin</span>
+              <span id="igtOutcomeDetail" class="text-slate-400 text-[11px]">Decks A & B offer big immediate cash but catastrophic long-term penalties.</span>
+            </div>
+          </div>
+          <button onclick="resetIgtGame()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition self-start sm:self-center">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Reset Bankroll
+          </button>
+        </div>
+
+        <!-- Clinical Takeaway Callout -->
+        <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300">
+          <strong class="text-white block font-semibold mb-0.5">Clinical Insight:</strong>
+          Players choose from four card decks. Decks A and B offer big immediate cash payouts but hidden catastrophic penalties (disadvantageous). Decks C and D offer small payouts but tiny penalties, resulting in long-term profit (advantageous). Healthy people quickly sense the risk and stick to C and D; patients with frontal lobe or amygdala damage keep gambling on A and B until they go broke.
+        </div>
+      </div>
+
+      <div id="flanker-lab" class="glass-card rounded-3xl p-5 sm:p-8 space-y-6 border border-cortex-emerald/40 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-semibold">
+              <i class="fa-solid fa-arrows-left-right"></i> LAB EXPERIMENT 02
+            </div>
+            <h4 class="text-lg sm:text-xl font-bold text-white mt-1">Eriksen Flanker Task: Cognitive Control & Response Inhibition</h4>
+            <p class="text-xs text-slate-400">Test how distracting flanking cues delay response speed and test prefrontal inhibitory control.</p>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-slate-400 uppercase block">Keyboard or Touch</span>
+            <span class="text-xs font-mono text-cortex-emerald">Use Left/Right buttons below</span>
+          </div>
+        </div>
+
+        <!-- Experiment Arena -->
+        <div class="p-6 rounded-2xl bg-slate-950 border border-slate-800 min-h-[220px] flex flex-col items-center justify-center text-center relative select-none">
+          <div id="flankerStartArea" class="space-y-3">
+            <div class="text-3xl text-slate-600 font-mono tracking-widest">&gt;&gt;&gt;&gt;&gt;</div>
+            <p class="text-xs text-slate-300 max-w-sm mx-auto">
+              Focus on the <strong>CENTER ARROW</strong> only. Ignore all flanking arrows. Respond as quickly as you can whether the middle arrow points LEFT or RIGHT!
+            </p>
+            <button onclick="startFlankerTrial()" class="px-5 py-2.5 rounded-xl bg-cortex-emerald hover:bg-emerald-500 text-slate-950 font-bold text-xs transition shadow-lg">
+              Start Flanker Trial
+            </button>
+          </div>
+
+          <!-- Active Stimulus Display -->
+          <div id="flankerStimulusArea" class="hidden space-y-4">
+            <div class="text-xs font-mono text-slate-500">IDENTIFY THE CENTER ARROW</div>
+            <div id="flankerArrowDisplay" class="text-4xl sm:text-5xl font-mono font-bold tracking-widest text-white animate-pulse">
+              &lt;&lt;&gt;&lt;&lt;
+            </div>
+          </div>
+
+          <!-- Flanker Result Feedback -->
+          <div id="flankerResultArea" class="hidden space-y-2">
+            <span id="flankerResultType" class="text-xs font-mono font-bold text-emerald-400">Congruent Trial Correct!</span>
+            <div id="flankerRtDisplay" class="text-2xl sm:text-3xl font-mono font-extrabold text-white">345 ms</div>
+            <p id="flankerExplanation" class="text-xs text-slate-400 max-w-md mx-auto">
+              Resolving the clash in incongruent trials requires executive prefrontal control to suppress the flanking noise.
+            </p>
+            <button onclick="startFlankerTrial()" class="mt-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition">
+              Try Another Trial
+            </button>
+          </div>
+        </div>
+
+        <!-- Flanker Mobile Touch Response Controls -->
+        <div class="grid grid-cols-2 gap-4">
+          <button onclick="respondFlanker('left')" class="p-4 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-cortex-emerald/40 border border-slate-700 text-white font-mono font-bold text-base transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> LEFT
+          </button>
+          <button onclick="respondFlanker('right')" class="p-4 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-cortex-emerald/40 border border-slate-700 text-white font-mono font-bold text-base transition flex items-center justify-center gap-2">
+            RIGHT <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashcard-deck" class="space-y-6 pt-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-violet font-mono">Glossary & Mastery</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">Active-Recall Flashcard Deck</h3>
+          <p class="text-xs text-slate-400">Complete 24 glossary terms and concepts from the official syllabus notes.</p>
+        </div>
+        <!-- Category Filters -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button onclick="filterFlashcards('all')" class="fc-filter px-2.5 py-1 text-xs rounded-lg bg-cortex-violet text-white font-medium" data-filter="all">All (24)</button>
+          <button onclick="filterFlashcards('brain')" class="fc-filter px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="brain">Brain & Cells</button>
+          <button onclick="filterFlashcards('pfc')" class="fc-filter px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="pfc">PFC & Models</button>
+          <button onclick="filterFlashcards('chem')" class="fc-filter px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="chem">Chemicals & Stress</button>
+          <button onclick="filterFlashcards('tasks')" class="fc-filter px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="tasks">Tasks & Clinical</button>
+        </div>
+      </div>
+
+      <!-- Main Flashcard Flip Container -->
+      <div class="max-w-2xl mx-auto space-y-4">
+        <div class="perspective-1000 w-full h-80 sm:h-72 cursor-pointer select-none" onclick="flipFlashcard()">
+          <div id="flashcardBox" class="transform-style-3d relative w-full h-full duration-500 rounded-3xl shadow-2xl transition-transform">
+            <!-- Front Face -->
+            <div class="backface-hidden absolute inset-0 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-slate-700/80 p-6 sm:p-8 flex flex-col justify-between items-center text-center">
+              <div class="w-full flex justify-between items-center text-xs">
+                <span id="fcCategory" class="px-2.5 py-1 rounded-full bg-cortex-violet/20 text-cortex-violet font-mono font-semibold uppercase">BRAIN & CELLS</span>
+                <span id="fcCount" class="text-slate-400 font-mono">1 / 24</span>
+              </div>
+              <div class="my-auto space-y-2">
+                <span class="text-[11px] text-slate-500 uppercase tracking-widest font-mono">TERM TO DEFINE</span>
+                <h4 id="fcTerm" class="text-2xl sm:text-3xl font-extrabold text-white">Action Potential</h4>
+                <p class="text-xs text-slate-500 italic mt-1"><i class="fa-solid fa-arrows-rotate mr-1"></i> Tap anywhere to flip definition</p>
+              </div>
+              <div class="w-full text-slate-600 text-[11px] font-mono">
+                The Neuropsychology of Decision-Making Deck
+              </div>
+            </div>
+
+            <!-- Back Face (Definition) -->
+            <div class="backface-hidden rotate-y-180 absolute inset-0 rounded-3xl bg-gradient-to-br from-slate-900 via-neural-950 to-slate-900 border-2 border-cortex-violet p-6 sm:p-8 flex flex-col justify-between text-center items-center">
+              <div class="w-full flex justify-between items-center text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-semibold">DEFINITION</span>
+                <span class="text-cortex-violet text-xs"><i class="fa-solid fa-check"></i> Active Review</span>
+              </div>
+              <div class="my-auto space-y-2">
+                <p id="fcDefinition" class="text-xs sm:text-sm text-slate-100 leading-relaxed font-medium">
+                  A rapid electrical impulse that travels down an axon to deliver a signal to the end of a neuron.
+                </p>
+              </div>
+              <div class="w-full text-slate-500 text-[11px]">
+                Tap again to flip back
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls: Prev, Mastered, Shuffle, Next -->
+        <div class="flex items-center justify-between gap-2 px-2">
+          <button onclick="prevFlashcard()" class="px-3 sm:px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-arrow-left"></i> Prev
+          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="shuffleFlashcards()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition" title="Shuffle Deck">
+              <i class="fa-solid fa-shuffle"></i>
+            </button>
+            <button onclick="toggleCardMastery()" id="masteryButton" class="px-3 py-2 rounded-xl bg-emerald-600/30 border border-emerald-500 text-emerald-300 text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check"></i> Mark Mastered
+            </button>
+          </div>
+          <button onclick="nextFlashcard()" class="px-3 sm:px-4 py-2 rounded-xl bg-neural-600 hover:bg-neural-500 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+            Next <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz-container" class="space-y-6 pt-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400 font-mono">Self-Assessment</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">Scenario-Based Knowledge Check</h3>
+          <p class="text-xs text-slate-400">10 randomized revision questions testing concepts and clinical applications.</p>
+        </div>
+        <div class="text-right">
+          <span class="text-xs font-mono text-slate-400">Score:</span>
+          <div id="quizScoreTracker" class="text-lg sm:text-xl font-extrabold text-amber-400 font-mono">0 / 0</div>
+        </div>
+      </div>
+
+      <!-- Quiz Card Area -->
+      <div class="max-w-3xl mx-auto rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+        <div class="flex items-center justify-between text-xs">
+          <span id="quizStepIndicator" class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono font-bold">
+            QUESTION 1 OF 10
+          </span>
+          <span id="quizTopicTag" class="text-slate-400 font-mono text-[11px]">Topic: Phineas Gage</span>
+        </div>
+
+        <!-- Question Prompt -->
+        <h4 id="quizQuestionPrompt" class="text-sm sm:text-base font-bold text-white leading-relaxed">
+          Following an 1848 blasting accident that sent an iron rod through his frontal lobe, Phineas Gage walked and spoke normally, but his personality shifted from polite and reliable to impulsive and irresponsible. What did this historic case establish?
+        </h4>
+
+        <!-- Options Container -->
+        <div id="quizOptionButtons" class="space-y-3">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Explanation / Rationale Box -->
+        <div id="quizRationaleBox" class="hidden p-4 rounded-xl border text-xs space-y-1">
+          <div id="quizRationaleHeader" class="font-bold flex items-center gap-1.5"></div>
+          <p id="quizRationaleContent" class="text-slate-300 leading-relaxed"></p>
+        </div>
+
+        <!-- Quiz Footer -->
+        <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+          <button onclick="resetFullQuiz()" class="text-xs text-slate-500 hover:text-slate-300 transition">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Restart Exam
+          </button>
+          <button id="quizNextBtn" onclick="nextQuizStep()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition hidden flex items-center gap-1.5">
+            Next Question <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-revision" class="space-y-6 pt-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cortex-cyan font-mono">High-Yield Synthesis</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">Quick Revision Sheet</h3>
+        </div>
+        <button onclick="window.print()" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-print"></i> Print Notes
+        </button>
+      </div>
+
+      <!-- Core Ideas 4 Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <span class="font-bold text-cortex-cyan font-mono block text-xs">Development Lag:</span>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            The brain reaches full physical size in early adolescence (11-14), but the prefrontal cortex continues pruning and myelinating until roughly age 25.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <span class="font-bold text-cortex-violet font-mono block text-xs">Integrated Control:</span>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            The prefrontal cortex acts as an association hub. It does not work alone; it integrates emotional inputs from the amygdala and memory from the hippocampus to direct thoughts and behavior.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <span class="font-bold text-cortex-amber font-mono block text-xs">Dual Engines:</span>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Decisions balance fast, emotional, automatic systems (experiential / contention scheduling) with slow, deliberate, top-down systems (rational / SAS).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <span class="font-bold text-rose-400 font-mono block text-xs">Experiences Build Biology:</span>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Childhood environments physically alter development. Chronic stress dysregulates the HPA axis, while early dominance aggression with siblings alters prefrontal development, leading to an avoidant decision style in adulthood.
+          </p>
+        </div>
+      </div>
+
+      <!-- Core Theories and Models Table from PDF -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-white font-mono uppercase tracking-wider text-cortex-cyan">Core Theories and Models at a Glance</h4>
+        <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/80">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Framework</th>
+                <th class="p-3.5">Theorist</th>
+                <th class="p-3.5">How It Explains Thinking & Choosing</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-[11px]">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-cortex-cyan">Cognitive-Experiential Theory</td>
+                <td class="p-3.5 text-white font-mono">Epstein</td>
+                <td class="p-3.5">We balance two systems: an emotional, automatic, effortless Experiential system (amygdala/striatum) and an analytical, slow, effortful Rational system (PFC/hippocampus).</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-cortex-violet">Supervisory Attention Model</td>
+                <td class="p-3.5 text-white font-mono">Shallice</td>
+                <td class="p-3.5">Routine habits run on automatic Contention Scheduling; novel, ambiguous, or dangerous situations force the conscious Supervisory Attentional System (SAS) to take over.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-cortex-amber">Hierarchical Metacognition</td>
+                <td class="p-3.5 text-white font-mono">Stuss & Benson</td>
+                <td class="p-3.5">A three-tier pyramid: bottom = automatic sensory processing; middle = executive goal direction; top = metacognition (reflecting on your own choices).</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-cortex-emerald">Integrative Theory of PFC</td>
+                <td class="p-3.5 text-white font-mono">Miller & Cohen</td>
+                <td class="p-3.5">The PFC acts as a rule-maker, using top-down guidance to steer lower sensory and motor systems toward overarching goals.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-rose-400">GDMS Model</td>
+                <td class="p-3.5 text-white font-mono">Scott & Bruce</td>
+                <td class="p-3.5">People rely on 5 learned decision styles: Rational, Intuitive, Dependent, Avoidant, and Spontaneous.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Decision Tasks & Clinical Breakdown Table from PDF -->
+      <div class="space-y-3 pt-2">
+        <h4 class="text-sm font-bold text-white font-mono uppercase tracking-wider text-rose-400">Decision Tasks & Clinical Breakdown</h4>
+        <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/80">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Assessment / Condition</th>
+                <th class="p-3.5">What It Reveals</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-[11px]">
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-amber-300">Iowa Gambling Task (IGT)</td>
+                <td class="p-3.5">Tests ability to learn from risk and penalty. Patients with frontal lobe damage or psychopathy fail to realize decks A & B lead to net ruin.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-emerald-300">Eriksen Flanker Task</td>
+                <td class="p-3.5">Tests response inhibition and cognitive control under distraction (>>>>> vs >>><>>).</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-rose-300">Substance Use Disorder</td>
+                <td class="p-3.5">Stimulants flood dopamine pathways, causing people to transition from flexible planning to rigid, unbreakable motor habits (reversal learning failure).</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-cortex-cyan">Schizophrenia</td>
+                <td class="p-3.5">Disordered prefrontal-striatal connectivity leads to jumping to conclusions based on minimal facts.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-purple-300">Autism</td>
+                <td class="p-3.5">Decision-making is experienced as exhausting and anxiety-provoking, often showing strong win-stay-lose-shift rigidity.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-blue-300">Depression</td>
+                <td class="p-3.5">Reduced striatal reward sensitivity and blunted prefrontal serotonin cause anhedonia and cognitive rigidity.</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold text-rose-400">Psychopathy</td>
+                <td class="p-3.5">Amygdala-PFC disconnection eliminates the anticipatory fear of punishment, prompting risky, destructive choices.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Most Critical Distinctions Cards -->
+      <div class="space-y-3 pt-2">
+        <h4 class="text-sm font-bold text-white font-mono uppercase tracking-wider text-cortex-amber">Most Critical Distinctions</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+            <strong class="text-cortex-cyan block font-mono">Action Potential vs. Synaptic Transmission:</strong>
+            <p class="text-slate-300 text-[11px]">Electrical signal running inside one cell vs. chemical molecules floating between two cells.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+            <strong class="text-cortex-violet block font-mono">Synaptogenesis vs. Pruning:</strong>
+            <p class="text-slate-300 text-[11px]">Building millions of new connections vs. cutting away the weak, unused ones to increase speed and efficiency.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+            <strong class="text-cortex-amber block font-mono">Routine Choices vs. Making Outcomes:</strong>
+            <p class="text-slate-300 text-[11px]">Picking fixed options where you have zero control (buying milk) vs. situations where your confidence and effort change the outcome (running a project).</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+            <strong class="text-rose-400 block font-mono">Sibling Aggression vs. General Trauma:</strong>
+            <p class="text-slate-300 text-[11px]">Severe trauma triggers reckless, impulsive gambling; sibling dominance aggression specifically builds adult avoidance habits without increasing real-time gambling risk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-slate-800 pt-8 text-center text-xs text-slate-500 space-y-3">
+      <div class="flex justify-center flex-wrap gap-4 text-slate-400">
+        <a href="#brain-basics" class="hover:text-white transition">Brain Basics</a>
+        <a href="#prefrontal-cortex" class="hover:text-white transition">Prefrontal CEO</a>
+        <a href="#neurotransmitters-stress" class="hover:text-white transition">Chemicals & Stress</a>
+        <a href="#decision-styles" class="hover:text-white transition">Decision Styles</a>
+        <a href="#clinical-deficits" class="hover:text-white transition">Clinical Deficits</a>
+        <a href="#igt-lab" class="hover:text-white transition">Iowa Gambling Task</a>
+        <a href="#flanker-lab" class="hover:text-white transition">Flanker Lab</a>
+      </div>
+      <p>The Neuropsychology of Decision-Making: Study & Revision Notes.</p>
+      <p class="text-[11px] text-slate-600">Built for precision revision, conceptual mastery, and interactive laboratory simulation.</p>
+    </footer>
+  </main>
+
+  <script>
+    /* ==========================================================================
+       1. SYNTHETIC AUDIO FEEDBACK ENGINE (Web Audio API - No external sounds)
+       ========================================================================== */
+    let audioCtx = null;
+    let audioMuted = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) audioCtx = new AudioClass();
+      }
+    }
+
+    function playTone(freq = 440, type = 'sine', duration = 0.1, gainVal = 0.08) {
+      if (audioMuted) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (err) {
+        // Fallback gracefully without interrupting execution
+      }
+    }
+
+    function toggleAudio() {
+      audioMuted = !audioMuted;
+      const icon = document.getElementById('audioIcon');
+      if (audioMuted) {
+        icon.className = 'fa-solid fa-volume-xmark text-xs text-slate-500';
+      } else {
+        icon.className = 'fa-solid fa-volume-high text-xs text-cortex-cyan';
+        playTone(580, 'sine', 0.1);
+      }
+    }
+
+    function scrollToId(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        playTone(480, 'sine', 0.08);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const bar = document.getElementById('scrollProgressBar');
+      if (bar) bar.style.width = scrolled + '%';
+    });
+
+    const lobeData = {
+      frontal: {
+        title: "Frontal Lobe",
+        boundary: "Separated from parietal by central sulcus",
+        desc: "Located at the front, separated from the parietal lobe by the central sulcus. It is the seat of personality and executive functions: planning ahead, impulse control, social rules, and decision-making."
+      },
+      parietal: {
+        title: "Parietal Lobe",
+        boundary: "Sits behind the frontal lobe",
+        desc: "Sits behind the frontal lobe; integrates sensory data from the body like touch, temperature, pressure, pain, and two-point discrimination."
+      },
+      occipital: {
+        title: "Occipital Lobe",
+        boundary: "Located at the back of the head",
+        desc: "Located at the back of your head; houses the primary visual cortex to process visual features like shape, color, location, and depth."
+      },
+      temporal: {
+        title: "Temporal Lobe",
+        boundary: "Located along sides near the ears",
+        desc: "Located along the sides near the ears; houses the primary auditory cortex (hearing) and handles language recognition and memory storage."
+      }
+    };
+
+    function selectLobe(key) {
+      document.querySelectorAll('.lobe-btn').forEach(btn => {
+        btn.className = 'lobe-btn p-2.5 rounded-xl text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition text-xs font-medium';
+      });
+      const active = document.getElementById('lobeBtn-' + key);
+      if (active) {
+        active.className = 'lobe-btn p-2.5 rounded-xl text-left border bg-neural-600/30 border-neural-500 text-white transition text-xs font-medium';
+      }
+      const data = lobeData[key];
+      document.getElementById('lobeTitle').innerText = data.title;
+      document.getElementById('lobeBoundary').innerText = data.boundary;
+      document.getElementById('lobeDescription').innerText = data.desc;
+      playTone(520, 'sine', 0.08);
+    }
+
+    const synapseSteps = [
+      {
+        step: 1,
+        title: "1. Electrical Action Potential",
+        desc: "An electrical action potential travels down the presynaptic axon to the terminal button. Communication inside a neuron is electrical."
+      },
+      {
+        step: 2,
+        title: "2. Exocytosis (Vesicle Fusion)",
+        desc: "This voltage change triggers synaptic vesicles to fuse with the presynaptic membrane (exocytosis) and dump chemical messengers (neurotransmitters) into the cleft."
+      },
+      {
+        step: 3,
+        title: "3. Crossing the Synaptic Cleft",
+        desc: "Neurons do not physically touch; they are separated by a microscopic fluid gap called the synaptic cleft. Neurotransmitters diffuse across this fluid gap."
+      },
+      {
+        step: 4,
+        title: "4. Lock-and-Key Postsynaptic Binding",
+        desc: "The neurotransmitters bind to matching receptors on the postsynaptic dendrite like a key fitting into a lock, initiating a new electrical signal or modulation."
+      }
+    ];
+
+    let currentSynapseStep = 0;
+
+    function renderSynapseStep() {
+      const item = synapseSteps[currentSynapseStep];
+      document.getElementById('synapseStepBadge').innerText = `STEP ${item.step} OF 4`;
+      document.getElementById('synapseStepTitle').innerText = item.title;
+      document.getElementById('synapseStepDesc').innerText = item.desc;
+    }
+
+    function nextSynapseStep() {
+      currentSynapseStep = (currentSynapseStep + 1) % synapseSteps.length;
+      renderSynapseStep();
+      playTone(450 + currentSynapseStep * 70, 'triangle', 0.08);
+    }
+
+    function prevSynapseStep() {
+      currentSynapseStep = (currentSynapseStep - 1 + synapseSteps.length) % synapseSteps.length;
+      renderSynapseStep();
+      playTone(450 + currentSynapseStep * 70, 'triangle', 0.08);
+    }
+
+    function selectGradientZone(zone) {
+      const postBtn = document.getElementById('gradBtn-posterior');
+      const antBtn = document.getElementById('gradBtn-anterior');
+      const title = document.getElementById('gradVisualTitle');
+      const desc = document.getElementById('gradVisualDesc');
+
+      if (zone === 'posterior') {
+        postBtn.className = 'grad-btn p-3 rounded-xl border bg-cortex-cyan/30 border-cortex-cyan text-left text-xs transition text-white';
+        antBtn.className = 'grad-btn p-3 rounded-xl border bg-slate-800/80 border-slate-700 text-left text-xs transition';
+        title.innerText = 'Posterior (Rear) PFC: Aligned Mapping';
+        title.className = 'text-cortex-cyan font-bold uppercase';
+        desc.innerText = 'In classic sensory cortex, connections follow clean, matched topographical maps (input and output lines match up in the same spot). Posterior prefrontal areas are well-aligned like traditional cortex, interfacing with premotor and physical execution zones.';
+        playTone(440, 'sine', 0.08);
+      } else {
+        antBtn.className = 'grad-btn p-3 rounded-xl border bg-cortex-violet/30 border-cortex-violet text-left text-xs transition text-white';
+        postBtn.className = 'grad-btn p-3 rounded-xl border bg-slate-800/80 border-slate-700 text-left text-xs transition';
+        title.innerText = 'Anterior (Front Pole): Abstract Evaluating';
+        title.className = 'text-cortex-violet font-bold uppercase';
+        desc.innerText = 'Research by Dr. Stacey Bedwell shows that as you move toward the anterior (front pole) of the PFC, wiring becomes non-aligned, overlapping, and far more complex. This matches cognitive findings: the anterior pole sits at the very top of the hierarchy, handling the most abstract, open-ended evaluations.';
+        playTone(560, 'sine', 0.08);
+      }
+    }
+
+    const cascadeData = {
+      1: {
+        title: "Level 1 (Sensory / Premotor)",
+        anatomy: "Automatic Motor Reach",
+        desc: "You hear a generic notification ping and automatically pick up your phone."
+      },
+      2: {
+        title: "Level 2 (Contextual Suppression)",
+        anatomy: "Contextual Rules",
+        desc: "You hear the ringtone, but you are driving or in a meeting with your boss, so you suppress the reach."
+      },
+      3: {
+        title: "Level 3 (Episodic / Prior Knowledge)",
+        anatomy: "Episodic Override",
+        desc: "You remember a family member went into surgery this morning, so you override the meeting context and check it anyway."
+      },
+      4: {
+        title: "Level 4 (Anterior PFC Branching)",
+        anatomy: "Abstract Goal Balancing",
+        desc: "You balance multiple sub-goals and open-ended outcomes to decide whether checking now or following up later fits your larger personal priorities."
+      }
+    };
+
+    function selectCascadeLevel(level) {
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`cascBtn-${i}`);
+        if (i === level) {
+          btn.className = 'casc-btn p-2 rounded-xl border bg-cortex-emerald/30 border-cortex-emerald text-white text-xs font-bold text-center transition';
+        } else {
+          btn.className = 'casc-btn p-2 rounded-xl border bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-bold text-center transition';
+        }
+      }
+      const item = cascadeData[level];
+      document.getElementById('cascadeLevelTitle').innerText = item.title;
+      document.getElementById('cascadeAnatomy').innerText = item.anatomy;
+      document.getElementById('cascadeLevelDesc').innerText = item.desc;
+      playTone(400 + level * 60, 'triangle', 0.08);
+    }
+
+    let igtBankroll = 2000;
+    let igtPicks = 0;
+    const maxIgtPicks = 25;
+
+    function pickIgtCard(deck) {
+      if (igtPicks >= maxIgtPicks) {
+        document.getElementById('igtOutcomeHeadline').innerText = 'Task Finished (25 Cards Drawn)';
+        document.getElementById('igtOutcomeDetail').innerText = `Final Balance: $${igtBankroll}. Review how your selections compare with patients suffering frontal or amygdala lesions.`;
+        playTone(600, 'sine', 0.2);
+        return;
+      }
+
+      igtPicks++;
+      let win = 0;
+      let penalty = 0;
+
+      if (deck === 'A') {
+        win = 100;
+        // 50% chance penalty of 250
+        if (Math.random() < 0.5) penalty = 250;
+      } else if (deck === 'B') {
+        win = 100;
+        // 10% chance catastrophic penalty of 1250
+        if (Math.random() < 0.15) penalty = 1250;
+      } else if (deck === 'C') {
+        win = 50;
+        // 50% chance tiny penalty of 25
+        if (Math.random() < 0.5) penalty = 25;
+      } else if (deck === 'D') {
+        win = 50;
+        // 10% chance tiny penalty of 100
+        if (Math.random() < 0.15) penalty = 100;
+      }
+
+      const net = win - penalty;
+      igtBankroll += net;
+
+      document.getElementById('igtBankroll').innerText = `$${igtBankroll.toLocaleString()}`;
+      document.getElementById('igtPicks').innerText = `${igtPicks} / ${maxIgtPicks}`;
+
+      const icon = document.getElementById('igtOutcomeIcon');
+      const headline = document.getElementById('igtOutcomeHeadline');
+      const detail = document.getElementById('igtOutcomeDetail');
+
+      if (net > 0) {
+        playTone(700, 'sine', 0.12);
+        icon.className = 'w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-600 flex items-center justify-center text-emerald-400 text-lg';
+        icon.innerHTML = '<i class="fa-solid fa-arrow-trend-up"></i>';
+        headline.innerText = `Deck ${deck}: Won $${win}! Net Gain +$${net}`;
+        detail.innerText = `Bankroll increased to $${igtBankroll.toLocaleString()}.`;
+      } else {
+        playTone(220, 'sawtooth', 0.18);
+        icon.className = 'w-10 h-10 rounded-xl bg-rose-950 border border-rose-600 flex items-center justify-center text-rose-400 text-lg';
+        icon.innerHTML = '<i class="fa-solid fa-arrow-trend-down"></i>';
+        headline.innerText = `Deck ${deck}: Won $${win}, but HIT PENALTY -$${penalty}! (Net -$${Math.abs(net)})`;
+        detail.innerText = `Catastrophic or frequent penalties in disadvantageous decks erode your bankroll.`;
+      }
+    }
+
+    function resetIgtGame() {
+      igtBankroll = 2000;
+      igtPicks = 0;
+      document.getElementById('igtBankroll').innerText = '$2,000';
+      document.getElementById('igtPicks').innerText = '0 / 25';
+      document.getElementById('igtOutcomeHeadline').innerText = 'Draw a card to begin';
+      document.getElementById('igtOutcomeDetail').innerText = 'Decks A & B offer big immediate cash but catastrophic long-term penalties.';
+      document.getElementById('igtOutcomeIcon').className = 'w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 text-lg';
+      document.getElementById('igtOutcomeIcon').innerHTML = '<i class="fa-solid fa-hand-holding-dollar"></i>';
+      playTone(440, 'triangle', 0.08);
+    }
+
+    // Flanker Task Logic
+    let flankerActive = false;
+    let flankerTarget = ''; // 'left' or 'right'
+    let flankerType = '';   // 'congruent' or 'incongruent'
+    let flankerStartTime = 0;
+
+    function startFlankerTrial() {
+      document.getElementById('flankerStartArea').classList.add('hidden');
+      document.getElementById('flankerResultArea').classList.add('hidden');
+      document.getElementById('flankerStimulusArea').classList.remove('hidden');
+
+      const isRight = Math.random() < 0.5;
+      const isCongruent = Math.random() < 0.5;
+
+      flankerTarget = isRight ? 'right' : 'left';
+      flankerType = isCongruent ? 'congruent' : 'incongruent';
+
+      let stimulus = '';
+      if (isCongruent) {
+        stimulus = isRight ? '>>>>>' : '<<<<<';
+      } else {
+        stimulus = isRight ? '<<><<' : '>><>>';
+      }
+
+      document.getElementById('flankerArrowDisplay').innerText = stimulus;
+      flankerStartTime = performance.now();
+      flankerActive = true;
+      playTone(500, 'triangle', 0.05);
+    }
+
+    function respondFlanker(direction) {
+      if (!flankerActive) return;
+      flankerActive = false;
+      const rt = Math.round(performance.now() - flankerStartTime);
+
+      document.getElementById('flankerStimulusArea').classList.add('hidden');
+      document.getElementById('flankerResultArea').classList.remove('hidden');
+
+      const resType = document.getElementById('flankerResultType');
+      const rtDisplay = document.getElementById('flankerRtDisplay');
+      const expl = document.getElementById('flankerExplanation');
+
+      const isCorrect = (direction === flankerTarget);
+
+      if (isCorrect) {
+        playTone(650, 'sine', 0.12);
+        resType.innerText = `${flankerType.toUpperCase()} TRIAL: CORRECT!`;
+        resType.className = flankerType === 'congruent' ? 'text-xs font-mono font-bold text-emerald-400' : 'text-xs font-mono font-bold text-amber-400';
+        rtDisplay.innerText = `${rt} ms`;
+        if (flankerType === 'incongruent') {
+          expl.innerText = `Incongruent trials elicit response competition; your prefrontal cortex had to actively suppress the conflicting flanker arrows.`;
+        } else {
+          expl.innerText = `Congruent trials present zero response conflict, allowing rapid, automatic motor execution.`;
+        }
+      } else {
+        playTone(240, 'sawtooth', 0.2);
+        resType.innerText = `${flankerType.toUpperCase()} TRIAL: INCORRECT DIRECTION`;
+        resType.className = 'text-xs font-mono font-bold text-rose-400';
+        rtDisplay.innerText = `${rt} ms (Error)`;
+        expl.innerText = `You responded to the flanking distractors instead of isolating the center target arrow.`;
+      }
+    }
+
+    // Keyboard support for Flanker Task
+    window.addEventListener('keydown', (e) => {
+      if (!flankerActive) return;
+      if (e.key === 'ArrowLeft') {
+        respondFlanker('left');
+      } else if (e.key === 'ArrowRight') {
+        respondFlanker('right');
+      }
+    });
+
+    const flashcardDeck = [
+      {
+        term: "Action Potential",
+        cat: "brain",
+        def: "A rapid electrical impulse that travels down an axon to deliver a signal to the end of a neuron."
+      },
+      {
+        term: "Amygdala",
+        cat: "brain",
+        def: "An almond-shaped limbic structure responsible for processing fear, emotional tags, and threat signals."
+      },
+      {
+        term: "Anhedonia",
+        cat: "tasks",
+        def: "The inability to experience pleasure or reward from everyday activities; a hallmark of depression."
+      },
+      {
+        term: "Astrocytes",
+        cat: "brain",
+        def: "Star-shaped glial cells that maintain the brain's chemical balance, protect tissue, and support neurogenesis."
+      },
+      {
+        term: "Autonomic Schemas (Contention Scheduling)",
+        cat: "pfc",
+        def: "Well-rehearsed, unconscious action routines triggered automatically by familiar cues."
+      },
+      {
+        term: "Cognitive Remediation Therapy (CRT)",
+        cat: "tasks",
+        def: "A behavioral training approach that exercises brain networks to improve memory, planning, and decision strategies."
+      },
+      {
+        term: "Corpus Callosum",
+        cat: "brain",
+        def: "The thick nerve tract connecting the left and right cerebral hemispheres."
+      },
+      {
+        term: "Depressive Realism",
+        cat: "tasks",
+        def: "The phenomenon where individuals with mild depression make more accurate judgments about their lack of control than overly optimistic peers."
+      },
+      {
+        term: "Dopamine",
+        cat: "chem",
+        def: "A neurotransmitter critical for anticipating rewards, driving motivation, sustaining working memory, and executing motor choices."
+      },
+      {
+        term: "Eriksen Flanker Task",
+        cat: "tasks",
+        def: "An experiment measuring cognitive control and response inhibition by testing how well someone ignores distracting, conflicting visual cues."
+      },
+      {
+        term: "General Decision Making Style (GDMS)",
+        cat: "tasks",
+        def: "A 5-factor psychological questionnaire measuring whether someone is Rational, Intuitive, Dependent, Avoidant, or Spontaneous."
+      },
+      {
+        term: "HPA Axis",
+        cat: "chem",
+        def: "The Hypothalamic-Pituitary-Adrenal network that manages physical stress responses and pumps out cortisol."
+      },
+      {
+        term: "Iowa Gambling Task (IGT)",
+        cat: "tasks",
+        def: "A card game assessment that evaluates real-world decision-making under risk and ambiguity by tracking how players navigate good vs. bad decks."
+      },
+      {
+        term: "Microglia",
+        cat: "brain",
+        def: "Dynamic glial scavenger cells that clear cellular debris and manage inflammation in the nervous system."
+      },
+      {
+        term: "Myelin Sheath",
+        cat: "brain",
+        def: "The protective fatty wrapping around axons produced by glial cells that allows electrical signals to travel significantly faster."
+      },
+      {
+        term: "Prefrontal Cortex (PFC)",
+        cat: "pfc",
+        def: "The most anterior region of the frontal lobe; the brain's executive control center for planning, impulse regulation, and complex decisions."
+      },
+      {
+        term: "Pyramidal Neurons",
+        cat: "brain",
+        def: "The primary excitatory brain cells in the cortex, easily recognized by their triangular cell bodies."
+      },
+      {
+        term: "Response Inhibition",
+        cat: "pfc",
+        def: "The executive ability to deliberately suppress actions or impulses that are inappropriate or interfere with a long-term goal."
+      },
+      {
+        term: "Serotonin",
+        cat: "chem",
+        def: "A neuromodulator that regulates mood, sleep, appetite, and memory; low levels are linked to depression and cognitive rigidity."
+      },
+      {
+        term: "Supervisory Attentional System (SAS)",
+        cat: "pfc",
+        def: "Shallice's term for the conscious, top-down executive system that steps in to guide decisions during brand-new or conflicting situations."
+      },
+      {
+        term: "Synaptic Pruning",
+        cat: "brain",
+        def: "The developmental process of eliminating unused synapses to make neural communication more efficient."
+      },
+      {
+        term: "Synaptogenesis",
+        cat: "brain",
+        def: "The rapid creation of new synaptic junctions between neurons."
+      },
+      {
+        term: "Topographic Organization",
+        cat: "brain",
+        def: "The spatial arrangement where adjacent points in sensory inputs or the body are mapped onto adjacent neurons in the cortex."
+      },
+      {
+        term: "Reversal Learning Deficit",
+        cat: "tasks",
+        def: "Inability to adapt behavior when reward contingencies change, causing compulsive repetition of formerly rewarded actions (hallmark of substance use disorder)."
+      }
+    ];
+
+    let activeDeck = [...flashcardDeck];
+    let cardIdx = 0;
+    let cardFlipped = false;
+    let masteredCards = new Set();
+
+    function renderActiveCard() {
+      if (activeDeck.length === 0) return;
+      const card = activeDeck[cardIdx];
+      const box = document.getElementById('flashcardBox');
+
+      box.classList.remove('rotate-y-180');
+      cardFlipped = false;
+
+      document.getElementById('fcCategory').innerText = card.cat.toUpperCase();
+      document.getElementById('fcCount').innerText = `${cardIdx + 1} / ${activeDeck.length}`;
+      document.getElementById('fcTerm').innerText = card.term;
+      document.getElementById('fcDefinition').innerText = card.def;
+
+      const mBtn = document.getElementById('masteryButton');
+      if (masteredCards.has(card.term)) {
+        mBtn.className = 'px-3 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold transition flex items-center gap-1.5';
+        mBtn.innerHTML = '<i class="fa-solid fa-check"></i> Mastered';
+      } else {
+        mBtn.className = 'px-3 py-2 rounded-xl bg-emerald-600/30 border border-emerald-500 text-emerald-300 text-xs font-semibold transition flex items-center gap-1.5';
+        mBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Mark Mastered';
+      }
+    }
+
+    function flipFlashcard() {
+      const box = document.getElementById('flashcardBox');
+      cardFlipped = !cardFlipped;
+      if (cardFlipped) {
+        box.classList.add('rotate-y-180');
+        playTone(520, 'sine', 0.08);
+      } else {
+        box.classList.remove('rotate-y-180');
+        playTone(440, 'sine', 0.08);
+      }
+    }
+
+    function nextFlashcard() {
+      cardIdx = (cardIdx + 1) % activeDeck.length;
+      renderActiveCard();
+      playTone(480, 'triangle', 0.06);
+    }
+
+    function prevFlashcard() {
+      cardIdx = (cardIdx - 1 + activeDeck.length) % activeDeck.length;
+      renderActiveCard();
+      playTone(480, 'triangle', 0.06);
+    }
+
+    function shuffleFlashcards() {
+      activeDeck.sort(() => Math.random() - 0.5);
+      cardIdx = 0;
+      renderActiveCard();
+      playTone(600, 'sine', 0.1);
+    }
+
+    function toggleCardMastery() {
+      const card = activeDeck[cardIdx];
+      if (masteredCards.has(card.term)) {
+        masteredCards.delete(card.term);
+      } else {
+        masteredCards.add(card.term);
+        playTone(720, 'sine', 0.15);
+      }
+      renderActiveCard();
+    }
+
+    function filterFlashcards(cat) {
+      document.querySelectorAll('.fc-filter').forEach(btn => {
+        btn.className = 'fc-filter px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white';
+      });
+      event.target.className = 'fc-filter px-2.5 py-1 text-xs rounded-lg bg-cortex-violet text-white font-medium';
+
+      if (cat === 'all') {
+        activeDeck = [...flashcardDeck];
+      } else {
+        activeDeck = flashcardDeck.filter(c => c.cat === cat);
+      }
+      cardIdx = 0;
+      renderActiveCard();
+      playTone(440, 'sine', 0.08);
+    }
+
+    const quizData = [
+      {
+        topic: "Phineas Gage & Frontal Function",
+        prompt: "Following an 1848 blasting accident that sent an iron rod through his frontal lobe, Phineas Gage walked and spoke normally, but his personality shifted from polite and reliable to impulsive and irresponsible. What did this historic case establish?",
+        options: [
+          { text: "Speech production is exclusively localized in the right occipital lobe", correct: false },
+          { text: "The frontal lobe directly controls personality, social rules, and executive decision-making", correct: true },
+          { text: "Long-term memories are created solely inside Schwann glial cells", correct: false },
+          { text: "The brainstem handles conscious, voluntary moral reasoning", correct: false }
+        ],
+        rationale: "Gage's survival with intact motor and language skills but shattered social and executive judgment proved the frontal cortex is the seat of personality and executive decisions."
+      },
+      {
+        topic: "PFC Anatomical Connectivity",
+        prompt: "Anatomically, the prefrontal cortex (PFC) is formally defined as the cortical area that receives direct axonal projections from which thalamic nucleus?",
+        options: [
+          { text: "Lateral geniculate nucleus of the thalamus", correct: false },
+          { text: "Mediodorsal nucleus of the thalamus", correct: true },
+          { text: "Ventral posterolateral nucleus", correct: false },
+          { text: "Suprachiasmatic nucleus", correct: false }
+        ],
+        rationale: "The PFC is defined anatomically as the region receiving inputs from the mediodorsal nucleus of the thalamus, making up ~29% of the human cerebral cortex."
+      },
+      {
+        topic: "Anterior-Posterior Connectivity Gradient",
+        prompt: "According to anatomical research by Dr. Stacey Bedwell, how does the wiring of the prefrontal cortex change as you move from posterior areas toward the anterior frontal pole?",
+        options: [
+          { text: "It becomes strictly single-layered and loses all connectivity with the limbic system", correct: false },
+          { text: "It transitions from aligned topographical wiring to non-aligned, overlapping, and complex networks", correct: true },
+          { text: "It completely mirrors the simple, localized maps of the primary visual cortex", correct: false },
+          { text: "It stops receiving dopamine inputs from the midbrain entirely", correct: false }
+        ],
+        rationale: "Posterior areas align neatly like classic cortex, but anterior pole networks become non-aligned and overlapping, sitting at the top of the hierarchy for abstract evaluation."
+      },
+      {
+        topic: "Sibling Aggression Research (Dr. Bedwell)",
+        prompt: "In Dr. Stacey Bedwell's research on childhood conflict and decision-making, what counterintuitive adult outcome was observed in individuals who used aggression to dominate siblings?",
+        options: [
+          { text: "They engage in reckless, impulsive gambling on laboratory tasks like the Iowa Gambling Task", correct: false },
+          { text: "They become significantly more likely to display an avoidant decision-making style as adults", correct: true },
+          { text: "They develop super-normal working memory and rational strategic planning", correct: false },
+          { text: "They lose the ability to experience physical two-point discrimination", correct: false }
+        ],
+        rationale: "Counterintuitively, perpetrators who used aggression to dominate siblings are significantly more prone to avoidant decision-making in adulthood (driven by anxiety and fear of failure), yet they show no elevation in laboratory gambling risk."
+      },
+      {
+        topic: "Shallice's Supervisory System",
+        prompt: "In Shallice's decision model, routine, practiced habits (like pressing the brake at a red light) run automatically via contention scheduling schemas. What executive system intervenes when encountering a brand-new, conflicting emergency?",
+        options: [
+          { text: "Supervisory Attentional System (SAS)", correct: true },
+          { text: "Analytical Rumination Loop", correct: false },
+          { text: "Autonomic Reflex Arc", correct: false },
+          { text: "Occipital Feature Extractor", correct: false }
+        ],
+        rationale: "The Supervisory Attentional System (SAS) provides top-down deliberate control when routine contention scheduling schemas are inadequate or conflicting."
+      },
+      {
+        topic: "Iowa Gambling Task (IGT)",
+        prompt: "On the Iowa Gambling Task (IGT), why are Decks A and B classified as disadvantageous compared to Decks C and D?",
+        options: [
+          { text: "Decks A and B offer zero initial cash payouts", correct: false },
+          { text: "Decks A and B offer big immediate payouts ($100) but catastrophic hidden penalties, causing net loss", correct: true },
+          { text: "Decks A and B only provide small $50 payouts with zero penalties", correct: false },
+          { text: "Healthy players can never distinguish between the four decks", correct: false }
+        ],
+        rationale: "Decks A and B lure players with immediate $100 wins but deliver devastating intermittent penalties (-$250 to -$1250), bankrupting patients with frontal or amygdala lesions who fail to learn from losses."
+      },
+      {
+        topic: "Stimulant Addiction & Flexibility",
+        prompt: "Chronic abuse of stimulant drugs (like cocaine or methamphetamine) causes a transition from flexible goal-directed choices to compulsive habits. What specific deficit demonstrates this in clinical tasks?",
+        options: [
+          { text: "Loss of acoustic hearing in the temporal lobe", correct: false },
+          { text: "Reversal learning deficit (inability to adapt when reward rules switch)", correct: true },
+          { text: "Complete destruction of all microglia in the spinal cord", correct: false },
+          { text: "Hyper-enhanced two-point tactile discrimination", correct: false }
+        ],
+        rationale: "Stimulant addiction produces a reversal learning deficit: even when rules change and a behavior inflicts immediate punishment, patients remain stuck in rigid, compulsive drug-seeking."
+      },
+      {
+        topic: "Depression & Decision Dynamics",
+        prompt: "The finding that individuals with mild depression sometimes evaluate their lack of personal control over uncontrollable outcomes more accurately than non-depressed people is known as:",
+        options: [
+          { text: "Contention Scheduling Failure", correct: false },
+          { text: "Depressive Realism (Alloy & Abramson)", correct: true },
+          { text: "Supervisory Metacognition Syndrome", correct: false },
+          { text: "Win-Stay-Lose-Shift Inversion", correct: false }
+        ],
+        rationale: "Depressive Realism demonstrates that mildly depressed individuals lack the self-serving, overly optimistic illusions typical of healthy neurotypicals when evaluating uncontrollable events."
+      },
+      {
+        topic: "Eriksen Flanker Task Mechanism",
+        prompt: "During an incongruent trial on the Eriksen Flanker Task (e.g., <<><<), why is reaction time slower compared to congruent trials (>>>>>)?",
+        options: [
+          { text: "The occipital lobe shuts off completely during incongruent trials", correct: false },
+          { text: "The prefrontal cortex must actively resolve response conflict and suppress the flanking distractors", correct: true },
+          { text: "Motor neurons take twice as long to generate an action potential", correct: false },
+          { text: "Incongruent trials cause instant synaptic pruning in the parietal lobe", correct: false }
+        ],
+        rationale: "Incongruent flankers trigger response competition; resolving this clash requires executive prefrontal control and response inhibition, creating a measurable millisecond delay."
+      },
+      {
+        topic: "Brain Development Timeline",
+        prompt: "Which brain region is the very last to finalize its synaptic pruning and myelination wiring, typically completing maturation around age 25?",
+        options: [
+          { text: "Primary visual cortex in the occipital lobe", correct: false },
+          { text: "Prefrontal cortex (PFC)", correct: true },
+          { text: "Brainstem and cerebellum", correct: false },
+          { text: "Primary auditory cortex in the temporal lobe", correct: false }
+        ],
+        rationale: "Sensory and survival areas myelinate and mature rapidly in early life, whereas the prefrontal cortex continues refining its wiring until roughly age 25."
+      }
+    ];
+
+    let currentQuizIdx = 0;
+    let quizScore = 0;
+    let answeredQuiz = false;
+
+    function renderQuizStep() {
+      answeredQuiz = false;
+      const q = quizData[currentQuizIdx];
+      document.getElementById('quizStepIndicator').innerText = `QUESTION ${currentQuizIdx + 1} OF ${quizData.length}`;
+      document.getElementById('quizTopicTag').innerText = `Topic: ${q.topic}`;
+      document.getElementById('quizQuestionPrompt').innerText = q.prompt;
+
+      const optsBox = document.getElementById('quizOptionButtons');
+      optsBox.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:bg-slate-800 text-slate-200 text-xs transition flex items-center justify-between group';
+        btn.innerHTML = `
+          <span>${opt.text}</span>
+          <i class="fa-regular fa-circle text-slate-500 group-hover:text-amber-400"></i>
+        `;
+        btn.onclick = () => selectQuizOpt(idx, btn);
+        optsBox.appendChild(btn);
+      });
+
+      document.getElementById('quizRationaleBox').className = 'hidden';
+      document.getElementById('quizNextBtn').classList.add('hidden');
+      document.getElementById('quizScoreTracker').innerText = `${quizScore} / ${currentQuizIdx}`;
+    }
+
+    function selectQuizOpt(optIdx, btnEl) {
+      if (answeredQuiz) return;
+      answeredQuiz = true;
+
+      const q = quizData[currentQuizIdx];
+      const isCorrect = q.options[optIdx].correct;
+
+      const ratBox = document.getElementById('quizRationaleBox');
+      const ratHeader = document.getElementById('quizRationaleHeader');
+      const ratContent = document.getElementById('quizRationaleContent');
+
+      ratBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        quizScore++;
+        playTone(720, 'sine', 0.15);
+        btnEl.className = 'w-full text-left p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500 text-emerald-200 text-xs font-semibold flex items-center justify-between';
+        btnEl.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+
+        ratBox.className = 'p-4 rounded-xl bg-emerald-950/60 border border-emerald-700 text-xs space-y-1';
+        ratHeader.className = 'font-bold text-emerald-300 flex items-center gap-1.5';
+        ratHeader.innerHTML = '<i class="fa-solid fa-circle-check"></i> Correct!';
+      } else {
+        playTone(220, 'sawtooth', 0.2);
+        btnEl.className = 'w-full text-left p-3.5 rounded-xl bg-rose-950/80 border border-rose-500 text-rose-200 text-xs font-semibold flex items-center justify-between';
+        btnEl.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-400';
+
+        // Highlight correct
+        const allButtons = document.getElementById('quizOptionButtons').querySelectorAll('button');
+        q.options.forEach((opt, idx) => {
+          if (opt.correct) {
+            allButtons[idx].className = 'w-full text-left p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-600/70 text-emerald-300 text-xs flex items-center justify-between';
+            allButtons[idx].querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+          }
+        });
+
+        ratBox.className = 'p-4 rounded-xl bg-rose-950/60 border border-rose-800 text-xs space-y-1';
+        ratHeader.className = 'font-bold text-rose-300 flex items-center gap-1.5';
+        ratHeader.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Incorrect Rationale';
+      }
+
+      ratContent.innerText = q.rationale;
+      document.getElementById('quizScoreTracker').innerText = `${quizScore} / ${currentQuizIdx + 1}`;
+      document.getElementById('quizNextBtn').classList.remove('hidden');
+    }
+
+    function nextQuizStep() {
+      if (currentQuizIdx < quizData.length - 1) {
+        currentQuizIdx++;
+        renderQuizStep();
+        playTone(460, 'sine', 0.08);
+      } else {
+        // Complete summary
+        const container = document.getElementById('quizOptionButtons');
+        container.innerHTML = `
+          <div class="text-center py-6 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 text-2xl flex items-center justify-center mx-auto border border-amber-500/40">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h5 class="text-xl font-bold text-white">Revision Assessment Complete!</h5>
+            <p class="text-sm text-slate-300">Final Score: <strong class="text-amber-400 text-lg">${quizScore} out of ${quizData.length}</strong> (${Math.round((quizScore / quizData.length) * 100)}%).</p>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">You have thoroughly reviewed brain lobes, synaptic transmission, prefrontal CEO theories, neurotransmitter circuits, decision styles, and clinical deficit tasks.</p>
+          </div>
+        `;
+        document.getElementById('quizRationaleBox').classList.add('hidden');
+        document.getElementById('quizNextBtn').classList.add('hidden');
+        playTone(800, 'sine', 0.25);
+      }
+    }
+
+    function resetFullQuiz() {
+      currentQuizIdx = 0;
+      quizScore = 0;
+      renderQuizStep();
+      playTone(450, 'sine', 0.08);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Init Lobes
+      selectLobe('frontal');
+
+      // 2. Init Synapse Stepper
+      renderSynapseStep();
+
+      // 3. Init Dr. Bedwell Gradient
+      selectGradientZone('anterior');
+
+      // 4. Init Phone Cascade
+      selectCascadeLevel(1);
+
+      // 5. Init Flashcards
+      renderActiveCard();
+
+      // 6. Init Quiz
+      renderQuizStep();
+    });
+  </script>
+</body>
+</html>
