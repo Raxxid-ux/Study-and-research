@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Psychology & Neuropsychology: Interactive Learning Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#0f172a',
+            },
+            synapse: {
+              purple: '#8b5cf6',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* 3D Flashcard Flip utilities */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Subtle pulse animation for active neural nodes */
+    @keyframes neural-pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.08); }
+    }
+    .animate-neural {
+      animation: neural-pulse 3s infinite ease-in-out;
+    }
+
+    /* Custom glass panel */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Global Progress Bar -->
+  <div id="scrollProgress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 via-brand-500 to-synapse-purple z-50 transition-all duration-150" style="width: 0%;"></div>
+
+  <!-- Main Navigation Bar -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-synapse-purple flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i class="fa-solid fa-brain text-white text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+            NeuroCognition
+            <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Study Hub</span>
+          </h1>
+          <p class="text-xs text-slate-400 hidden sm:block">Cognitive Psychology & Neuropsychology Revision</p>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-medium text-slate-300">
+        <a href="#foundations" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">1. Foundations</a>
+        <a href="#neuroimaging" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">2. Brain Methods</a>
+        <a href="#language" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">3. Language</a>
+        <a href="#memory-perception" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">4. Memory & Vision</a>
+        <a href="#attention" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">5. Attention</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-2">
+        <button onclick="scrollToSection('quiz-section')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-synapse-purple to-brand-600 text-white shadow-md hover:brightness-110 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-question"></i>
+          <span>Knowledge Quiz</span>
+        </button>
+        <button onclick="scrollToSection('flashcard-section')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition flex items-center gap-1.5 border border-slate-700">
+          <i class="fa-solid fa-layer-group"></i>
+          <span class="hidden sm:inline">Flashcards</span>
+        </button>
+        <button id="soundToggleBtn" onclick="toggleAudioFeedback()" class="p-2 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60" title="Toggle Interaction Sounds">
+          <i id="soundIcon" class="fa-solid fa-volume-high text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <!-- Hero Banner with Stats & Audio notice -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-brand-950/60 border border-slate-800 p-6 sm:p-10 shadow-2xl">
+      <div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-synapse-purple/10 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-medium">
+          <i class="fa-solid fa-sparkles"></i>
+          Interactive Revision Companion
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          Master the Architecture of the <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-cyan-400 to-synapse-purple">Mind & Brain</span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Comprehensive, syllabus-aligned revision notes transformed into interactive simulations, live visual search experiments, memory models, and diagnostic practice tools.
+        </p>
+
+        <!-- Quick Jump Badges -->
+        <div class="pt-2 flex flex-wrap gap-2 text-xs">
+          <span class="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-check-double text-emerald-400"></i> 5 Core Syllabus Units
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-flask-vial text-cyan-400"></i> 5 Interactive Lab Simulators
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-clone text-synapse-purple"></i> 17 Master Flashcards
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-trophy text-amber-400"></i> 10-Question Knowledge Exam
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section id="foundations" class="space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-brand-400 font-mono">Module 01</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Foundations, History & Nature vs. Nurture Interplay</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-brand-400">
+          <i class="fa-solid fa-dna text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Core Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Main Theory Card -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-4">
+            <h4 class="text-lg font-semibold text-white flex items-center gap-2">
+              <i class="fa-solid fa-scale-balanced text-cyan-400 text-sm"></i>
+              Beyond the "Versus" Dichotomy
+            </h4>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Psychology is the scientific study of the mind, the brain, and how they drive behavior. Cognitive psychology rejects pure biological determinism and pure blank-slate empiricism: <strong class="text-brand-300">your genes build possibilities, but your environment shapes how those genes manifest</strong>.
+            </p>
+
+            <!-- Conceptual Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                <span class="text-xs font-mono font-bold text-cyan-400">GENOTYPE</span>
+                <p class="text-xs text-slate-300 mt-1">The exact DNA code you inherit from biological parents (the underlying biological blueprint).</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                <span class="text-xs font-mono font-bold text-emerald-400">PHENOTYPE</span>
+                <p class="text-xs text-slate-300 mt-1">What actually gets expressed—observable physical traits, behavioral quirks, and cognitive abilities.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                <span class="text-xs font-mono font-bold text-synapse-purple">HERITABILITY</span>
+                <p class="text-xs text-slate-300 mt-1">A statistical estimate of how much population variance in a trait is driven by genetic variance versus environment.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60">
+                <span class="text-xs font-mono font-bold text-amber-400">TWIN & ADOPTION STUDIES</span>
+                <p class="text-xs text-slate-300 mt-1">Identical (MZ, 100% shared genes) vs. Fraternal (DZ, 50% shared genes). Separates genetic variance from home rearing.</p>
+              </div>
+            </div>
+
+            <!-- Shared vs Nonshared Environments -->
+            <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+              <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wide">Shared vs. Non-Shared Environmental Variance</h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                <div class="border-l-2 border-brand-500 pl-3">
+                  <strong class="text-white block">Shared Environment:</strong> Household income, parenting styles, family diet, neighborhood.
+                </div>
+                <div class="border-l-2 border-synapse-purple pl-3">
+                  <strong class="text-white block">Non-Shared Environment:</strong> Unique friend circles, distinct teachers, personal illness/accidents. <span class="text-amber-300 font-medium">Empirically shown to have stronger power in making siblings distinct!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historical Schools Accordion / Cards -->
+          <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-4">
+            <h4 class="text-lg font-semibold text-white flex items-center gap-2">
+              <i class="fa-solid fa-landmark text-amber-400 text-sm"></i>
+              Early Roots, Philosophical Debates & Major Schools
+            </h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-slate-700 transition">
+                <span class="font-bold text-amber-300">Ancient Roots</span>
+                <p class="text-slate-400 mt-1">Aristotle placed the mind in the heart; Plato linked it to the brain. In 900 CE, physician <strong>Avicenna</strong> pioneered early empirical studies on memory deficits and psychiatric conditions.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-slate-700 transition">
+                <span class="font-bold text-cyan-300">Structuralism (Wilhelm Wundt)</span>
+                <p class="text-slate-400 mt-1">Set up first formal psychology lab. Sought to break conscious thought into micro-components using systematic, trained <em>introspection</em>.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-slate-700 transition">
+                <span class="font-bold text-emerald-300">Functionalism (William James)</span>
+                <p class="text-slate-400 mt-1">Argued the conscious mind is a flowing stream that cannot be dissected. Focuses on <em>why</em> mental processes evolve to aid survival and adaptation.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-800/40 border border-slate-800 hover:border-slate-700 transition">
+                <span class="font-bold text-rose-300">Psychoanalysis (Sigmund Freud)</span>
+                <p class="text-slate-400 mt-1">Consciousness is merely the tip of the iceberg; behavior is steered by deep unconscious drives, conflicts, and childhood trauma.</p>
+              </div>
+            </div>
+
+            <!-- Mind-Body Debates Callout -->
+            <div class="p-3.5 rounded-xl bg-brand-950/40 border border-brand-900/60 text-xs space-y-2">
+              <div class="flex items-center gap-2 text-brand-300 font-semibold">
+                <i class="fa-solid fa-microchip"></i>
+                Mind-Body Debates & The Computer Metaphor
+              </div>
+              <p class="text-slate-300">
+                <strong>Dualism</strong> (mind and body are separate entities) vs. <strong>Mind-Brain Reductionism</strong> (mental states are pure physical neural activity). The challenge: explaining how raw electrical voltage translates into subjective qualitative experiences (qualia).
+              </p>
+              <p class="text-slate-400 italic">
+                Computer Metaphor: Brain = silicon hardware; Mind = software algorithms. You cannot fully comprehend how an operating system runs merely by measuring current in silicon!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Lab: Gene-Environment Correlation Simulator -->
+        <div class="rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-brand-500/30 p-6 space-y-5 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-mono font-semibold">
+                LAB 01: SIMULATOR
+              </span>
+              <span class="text-xs text-slate-400"><i class="fa-solid fa-hand-pointer mr-1"></i> Interactive</span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-3">Gene-Environment (rGE) Explorer</h4>
+            <p class="text-xs text-slate-400 mt-1">Select an interaction type to see how inherited genetics correlate with environmental exposure.</p>
+
+            <!-- Mode Selector Tabs -->
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <button onclick="selectGECorrelation('passive')" id="geBtn-passive" class="ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-brand-600/30 border-brand-500 text-white transition">
+                1. Passive
+              </button>
+              <button onclick="selectGECorrelation('evocative')" id="geBtn-evocative" class="ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition">
+                2. Evocative
+              </button>
+              <button onclick="selectGECorrelation('active')" id="geBtn-active" class="ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition">
+                3. Active (Niche)
+              </button>
+              <button onclick="selectGECorrelation('assortative')" id="geBtn-assortative" class="ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition">
+                4. Assortative
+              </button>
+            </div>
+
+            <!-- Dynamic Dynamic Visual Representation -->
+            <div class="mt-5 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+              <div id="geVisualDiagram" class="h-28 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-around px-3 relative overflow-hidden">
+                <!-- Injected via JS -->
+              </div>
+              <div id="geContentTitle" class="text-xs font-bold text-brand-300 uppercase tracking-wider">
+                Passive Correlation
+              </div>
+              <p id="geContentDesc" class="text-xs text-slate-300 leading-relaxed">
+                Parents provide both their genetic material and the environment. Musical parents pass on rhythm/auditory genes while filling their living space with instruments and classical records.
+              </p>
+            </div>
+          </div>
+
+          <!-- Micro Challenge -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs space-y-2">
+            <span class="text-amber-400 font-semibold block"><i class="fa-solid fa-lightbulb mr-1"></i> Quick Test: Tall Kid Scenario</span>
+            <p class="text-slate-400 text-[11px]">
+              A tall, coordinated child is noticed by coaches and invited to team basketball practice. Which type of rGE is primarily operating here?
+            </p>
+            <div class="flex gap-2">
+              <button onclick="checkRGEAnswer('evocative', this)" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Evocative</button>
+              <button onclick="checkRGEAnswer('active', this)" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Active</button>
+              <button onclick="checkRGEAnswer('passive', this)" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Passive</button>
+            </div>
+            <div id="rgeFeedback" class="hidden text-[11px] font-medium pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="neuroimaging" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 font-mono">Module 02</span>
+          <h3 class="text-2xl font-bold text-white mt-1">How We Study the Brain: Methods & Neuroimaging</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400">
+          <i class="fa-solid fa-microscope text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Overview Cards: 4 Core Approaches -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold mb-2">1</div>
+          <h4 class="font-bold text-white">Lesion Studies</h4>
+          <p class="text-slate-400 mt-1 text-[11px]">Inspect deficits when specific areas are damaged (e.g., Broca's aphasia). Limited by messy damage and post-injury brain plasticity.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mb-2">2</div>
+          <h4 class="font-bold text-white">Functional Recording</h4>
+          <p class="text-slate-400 mt-1 text-[11px]">Measure metabolic or electrical signals during tasks (fMRI BOLD effect, EEG electrical microvolts, MEG magnetic fields).</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold mb-2">3</div>
+          <h4 class="font-bold text-white">Structural Anatomy</h4>
+          <p class="text-slate-400 mt-1 text-[11px]">Examine morphology and tissue density using CT scans (X-ray density) or MRI (hydrogen proton radiofrequencies).</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="w-8 h-8 rounded-lg bg-synapse-purple/20 text-synapse-purple flex items-center justify-center font-bold mb-2">4</div>
+          <h4 class="font-bold text-white">Neural Stimulation</h4>
+          <p class="text-slate-400 mt-1 text-[11px]">TMS wands apply magnetic pulses to non-invasively activate or switch off cortical patches, proving direct causality.</p>
+        </div>
+      </div>
+
+      <!-- Interactive Lab: Neuroimaging Trade-Off Matrix -->
+      <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-cyan-400 font-mono text-xs font-semibold">
+              <i class="fa-solid fa-chart-line"></i> LAB 02: THE RESOLUTION DILEMMA
+            </div>
+            <h4 class="text-lg font-bold text-white mt-1">Spatial vs. Temporal Resolution Trade-off Map</h4>
+            <p class="text-xs text-slate-400">Click any imaging modality below to inspect its operational mechanism, strengths, and constraints.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400">Filter View:</span>
+            <button onclick="filterMethods('all')" class="method-filter px-2.5 py-1 rounded-md text-xs bg-cyan-600 text-white font-medium" data-target="all">All</button>
+            <button onclick="filterMethods('functional')" class="method-filter px-2.5 py-1 rounded-md text-xs bg-slate-800 text-slate-300 hover:text-white" data-target="functional">Functional</button>
+            <button onclick="filterMethods('structural')" class="method-filter px-2.5 py-1 rounded-md text-xs bg-slate-800 text-slate-300 hover:text-white" data-target="structural">Structural</button>
+          </div>
+        </div>
+
+        <!-- 2D Interactive Coordinate Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-7 bg-slate-950 rounded-xl border border-slate-800 p-4 relative min-h-[320px] flex flex-col justify-between">
+            <!-- Axis Labels -->
+            <div class="flex justify-between items-center text-[11px] font-mono text-cyan-400 border-b border-slate-800/80 pb-1">
+              <span>↑ HIGH SPATIAL RESOLUTION (Sharp millimeter 3D voxels)</span>
+              <span>Where it happens</span>
+            </div>
+
+            <!-- Coordinate Canvas / Area -->
+            <div class="relative flex-1 my-3 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]">
+              <!-- Center Axis guides -->
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span class="text-[10px] text-slate-700 font-mono">NEUROIMAGING RESOLUTION COMPASS</span>
+              </div>
+
+              <!-- Modality Interactive Badges positioned on 2D space -->
+              <!-- fMRI: High Spatial, Low Temporal -->
+              <button onclick="selectMethodDetail('fmri')" class="method-pin absolute top-6 left-6 p-2 rounded-xl bg-cyan-500/20 border border-cyan-400/80 text-cyan-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="top: 15%; left: 20%;">
+                <i class="fa-solid fa-wave-square"></i> fMRI (BOLD)
+              </button>
+
+              <!-- EEG: Low Spatial, High Temporal -->
+              <button onclick="selectMethodDetail('eeg')" class="method-pin absolute p-2 rounded-xl bg-amber-500/20 border border-amber-400/80 text-amber-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="bottom: 18%; right: 12%;">
+                <i class="fa-solid fa-bolt"></i> EEG
+              </button>
+
+              <!-- MEG: Moderate/High Spatial, High Temporal -->
+              <button onclick="selectMethodDetail('meg')" class="method-pin absolute p-2 rounded-xl bg-synapse-purple/20 border border-synapse-purple text-purple-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="top: 35%; right: 18%;">
+                <i class="fa-solid fa-magnet"></i> MEG
+              </button>
+
+              <!-- PET: Moderate Spatial, Poor Temporal -->
+              <button onclick="selectMethodDetail('pet')" class="method-pin absolute p-2 rounded-xl bg-rose-500/20 border border-rose-400/80 text-rose-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="top: 38%; left: 10%;">
+                <i class="fa-solid fa-radiation"></i> PET
+              </button>
+
+              <!-- TMS: Localized surface causality -->
+              <button onclick="selectMethodDetail('tms')" class="method-pin absolute p-2 rounded-xl bg-emerald-500/20 border border-emerald-400/80 text-emerald-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="bottom: 25%; left: 45%;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> TMS Wand
+              </button>
+
+              <!-- MRI: Pure anatomical structural -->
+              <button onclick="selectMethodDetail('mri')" class="method-pin absolute p-2 rounded-xl bg-blue-500/20 border border-blue-400/80 text-blue-200 text-xs font-bold hover:scale-110 transition shadow-lg flex items-center gap-1.5" style="top: 5%; left: 48%;">
+                <i class="fa-solid fa-cube"></i> MRI (Anatomy)
+              </button>
+            </div>
+
+            <div class="flex justify-between items-center text-[11px] font-mono text-amber-400 border-t border-slate-800/80 pt-1">
+              <span>When it happens</span>
+              <span>HIGH TEMPORAL RESOLUTION (Millisecond precision) →</span>
+            </div>
+          </div>
+
+          <!-- Modality Detail Panel -->
+          <div class="lg:col-span-5 bg-slate-950 rounded-xl border border-slate-800 p-5 flex flex-col justify-between" id="methodDetailContainer">
+            <!-- Dynamically populated via JS -->
+            <div>
+              <div class="flex items-center justify-between">
+                <span id="detailType" class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-mono text-[11px] uppercase">Functional Tool</span>
+                <span id="detailBadge" class="text-xs text-slate-400">Non-Invasive</span>
+              </div>
+              <h5 id="detailName" class="text-xl font-bold text-white mt-2">fMRI (Functional MRI)</h5>
+              <div class="space-y-3 mt-3 text-xs text-slate-300">
+                <p id="detailMechanism"><strong class="text-white">Mechanism:</strong> Detects changes in blood oxygen levels (the BOLD effect). Active neurons demand oxygenated blood, altering magnetic resonance signals.</p>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                  <div class="text-emerald-400 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-thumbs-up"></i> Best For:
+                  </div>
+                  <p id="detailBest" class="text-slate-300">Pinpointing exact 3D anatomical structures activated during visual, emotional, or language tasks.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                  <div class="text-rose-400 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Major Limitation:
+                  </div>
+                  <p id="detailLimitation" class="text-slate-300">Blood flow is sluggish compared to thoughts (hemodynamic lag takes 2-6 seconds; low temporal resolution).</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analogy snippet -->
+            <div id="detailAnalogy" class="mt-4 p-2.5 rounded-lg bg-cyan-950/30 border border-cyan-800/40 text-[11px] text-cyan-200 italic">
+              "Like a DSLR camera with a slow shutter speed: crisp photo of the race track, but blur if trying to measure the exact millisecond a car crossed."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="language" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 font-mono">Module 03</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Human Language: Acquisition & Comprehension</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
+          <i class="fa-solid fa-comments text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Language Core Split -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Interactive Developmental Timeline -->
+        <div class="lg:col-span-7 rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-timeline text-emerald-400"></i>
+              Stages of Speech & Syntax Development
+            </h4>
+            <span class="text-xs text-slate-400 font-mono">0 to 48 Months</span>
+          </div>
+
+          <!-- Chronological Stage Stepper -->
+          <div class="space-y-3">
+            <div class="stage-step p-3.5 rounded-xl bg-slate-800/60 border border-slate-700 flex items-start gap-3 cursor-pointer hover:border-emerald-500 transition" onclick="highlightStage(0)">
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs shrink-0">&lt;12m</div>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-2">
+                  Universal Listener & Babbling Stage
+                  <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">Phonemes</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-1">
+                  Infants discriminate almost every phoneme across global languages. By 10-12 months, phonetic tuning discards non-native sounds. Babbling starts with vowels, progressing to consonant-vowel combinations ("ba-ba", "ma-ma").
+                </p>
+              </div>
+            </div>
+
+            <div class="stage-step p-3.5 rounded-xl bg-slate-800/30 border border-slate-800 flex items-start gap-3 cursor-pointer hover:border-emerald-500 transition" onclick="highlightStage(1)">
+              <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs shrink-0">12-26m</div>
+              <div>
+                <div class="text-xs font-bold text-white">Telegraphic Stage (Two-Word Syntax)</div>
+                <p class="text-xs text-slate-300 mt-1">
+                  Concise 2-word constructions lacking grammatical inflections or helper words (e.g., "doggy go", "more milk"). High semantic information density.
+                </p>
+              </div>
+            </div>
+
+            <div class="stage-step p-3.5 rounded-xl bg-slate-800/30 border border-slate-800 flex items-start gap-3 cursor-pointer hover:border-emerald-500 transition" onclick="highlightStage(2)">
+              <div class="w-8 h-8 rounded-lg bg-synapse-purple/20 text-synapse-purple flex items-center justify-center font-bold text-xs shrink-0">27-30m</div>
+              <div>
+                <div class="text-xs font-bold text-white">Grammatical Morphemes & Overregularization</div>
+                <p class="text-xs text-slate-300 mt-1">
+                  Children attach plurals, past tenses, and questions. They display <strong>overregularization</strong> ("I goed outside", "two feets"), proving they construct internal algorithmic rules rather than pure parrot-like mimicry!
+                </p>
+              </div>
+            </div>
+
+            <div class="stage-step p-3.5 rounded-xl bg-slate-800/30 border border-slate-800 flex items-start gap-3 cursor-pointer hover:border-emerald-500 transition" onclick="highlightStage(3)">
+              <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs shrink-0">35-46m</div>
+              <div>
+                <div class="text-xs font-bold text-white">Complex Hierarchical Sentences</div>
+                <p class="text-xs text-slate-300 mt-1">
+                  Embedding subordinate clauses, conjunctions, and logical conditionals ("The boy who took my truck is going away").
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Lab: Language Diagnostic Simulator -->
+        <div class="lg:col-span-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 p-6 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-semibold">
+                LAB 03: DIAGNOSTIC
+              </span>
+              <span class="text-xs text-slate-400"><i class="fa-solid fa-puzzle-piece mr-1"></i> Interactive Case</span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-3">The Child Speech Investigator</h4>
+            <p class="text-xs text-slate-400 mt-1">Classify the linguistic phenomenon occurring in each child utterance.</p>
+
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+              <div class="text-xs text-slate-400 font-mono uppercase">Case Study:</div>
+              <div id="linguisticQuote" class="text-lg font-bold text-emerald-300 font-mono italic">
+                "Look Mommy, I runned super fast and swimmed!"
+              </div>
+              <p id="linguisticContext" class="text-xs text-slate-300">
+                A 3-year-old spontaneously produces these verb endings despite never having heard an adult say "swimmed".
+              </p>
+            </div>
+
+            <!-- Choice Buttons -->
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <button onclick="diagnoseLanguage('overreg')" class="lang-opt px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                Overregularization
+              </button>
+              <button onclick="diagnoseLanguage('overext')" class="lang-opt px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                Overextension
+              </button>
+              <button onclick="diagnoseLanguage('underext')" class="lang-opt px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                Underextension
+              </button>
+              <button onclick="diagnoseLanguage('universal')" class="lang-opt px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                Joint Attention
+              </button>
+            </div>
+            <div id="langDiagFeedback" class="mt-3 text-xs p-2.5 rounded-lg hidden font-medium"></div>
+          </div>
+
+          <!-- Key Theory Comparison: Statistical Learning vs Universal Grammar -->
+          <div class="mt-4 p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1.5">
+            <span class="font-bold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-code-compare text-emerald-400"></i> Statistical Learning vs. Universal Grammar
+            </span>
+            <p class="text-slate-400 text-[11px] leading-relaxed">
+              <strong>Statistical Hypothesis:</strong> Syllable co-occurrence tracking ("pretty-baby" transition probabilities).<br>
+              <strong>Chomsky's UG:</strong> Poverty of the stimulus dictates kids need innate biological grammar blueprints.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="memory-perception" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-synapse-purple font-mono">Module 04</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Working Memory & Sensory Perception</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-synapse-purple">
+          <i class="fa-solid fa-network-wired text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Working Memory & Baddeley Model -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Baddeley Architecture Visualizer -->
+        <div class="lg:col-span-6 rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-server text-synapse-purple"></i>
+              Baddeley & Hitch Tripartite Working Memory Model
+            </h4>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">Parallel Systems</span>
+          </div>
+
+          <p class="text-xs text-slate-300">
+            Memory is not a passive bottleneck (as proved by Patient KF, whose verbal short-term span was damaged to 1-2 items, yet long-term storage stayed intact).
+          </p>
+
+          <!-- Interactive WM Subsystems Diagram -->
+          <div class="space-y-3 pt-1">
+            <!-- Central Executive -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-purple-950/70 to-slate-900 border border-synapse-purple/50 text-center">
+              <span class="text-xs font-bold text-synapse-purple uppercase tracking-wider">Central Executive</span>
+              <p class="text-[11px] text-slate-300 mt-0.5">Attentional supervisor, coordinates subsystems, strategy selection, cognitive task-switching.</p>
+            </div>
+
+            <!-- Two Subordinate Slave Systems -->
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700 text-center hover:border-cyan-400 transition cursor-pointer" onclick="explainSubsystem('phonological')">
+                <span class="text-xs font-bold text-cyan-300 block">Phonological Loop</span>
+                <span class="text-[10px] text-slate-400 mt-1 block">"The Inner Voice & Ear"</span>
+                <p class="text-[11px] text-slate-300 mt-1">Holds acoustic/speech info. Rehearsal loop; vulnerable to word-length effect.</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700 text-center hover:border-emerald-400 transition cursor-pointer" onclick="explainSubsystem('visuospatial')">
+                <span class="text-xs font-bold text-emerald-300 block">Visuo-Spatial Sketchpad</span>
+                <span class="text-[10px] text-slate-400 mt-1 block">"The Inner Eye"</span>
+                <p class="text-[11px] text-slate-300 mt-1">Manipulates mental imagery, spatial routes, matrix rotation tasks.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual Task Bottleneck Experiment Callout -->
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+            <span class="font-bold text-amber-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-vial"></i> The Dual-Task Paradigm Rule
+            </span>
+            <p class="text-slate-400 mt-1 text-[11px]">
+              You can navigate a walking path (visuospatial) while listening to an audio lecture (phonological) with minimal friction. But try reading a legal document while someone recites numbers: both collide in the <em>phonological loop</em>, causing catastrophic interference!
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Lab: Dual Visual Streams (Ventral vs Dorsal) -->
+        <div class="lg:col-span-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-synapse-purple/40 p-6 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-mono font-semibold">
+              LAB 04: CEREBRAL PATHWAYS
+            </span>
+            <span class="text-xs text-slate-400"><i class="fa-solid fa-eye mr-1"></i> Interactive Streams</span>
+          </div>
+
+          <h4 class="text-base font-bold text-white">Visual Processing: The Two Stream Hypothesis</h4>
+          <p class="text-xs text-slate-400">Select a visual pathway to simulate its cortical route and associated clinical lesion syndrome.</p>
+
+          <!-- Pathway Selectors -->
+          <div class="grid grid-cols-2 gap-3">
+            <button onclick="toggleVisualStream('ventral')" id="btn-ventral" class="stream-btn p-3 rounded-xl bg-cyan-600/30 border border-cyan-400 text-left transition">
+              <span class="text-xs font-bold text-cyan-300 block">Ventral Stream ("What")</span>
+              <span class="text-[10px] text-slate-300">Occipital → Inferotemporal Lobe</span>
+            </button>
+            <button onclick="toggleVisualStream('dorsal')" id="btn-dorsal" class="stream-btn p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-left transition hover:bg-slate-800">
+              <span class="text-xs font-bold text-purple-300 block">Dorsal Stream ("Where/How")</span>
+              <span class="text-[10px] text-slate-300">Occipital → Parietal Lobe</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Pathway Canvas/Card -->
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+            <div id="streamGraphic" class="h-28 rounded-lg bg-slate-900 flex items-center justify-center p-3 relative overflow-hidden">
+              <!-- Visual Diagram injected via JS -->
+            </div>
+            <div>
+              <div id="streamTitle" class="text-xs font-bold text-cyan-300 uppercase tracking-wider">
+                Ventral Stream: Object & Face Identification ("What")
+              </div>
+              <p id="streamDescription" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Processes shape, color, texture, and semantic identity. Enables recognizing that an object is a telephone, a cup, or a friend's face.
+              </p>
+            </div>
+            <div id="streamClinical" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-rose-300">
+              <strong class="text-white">Lesion Syndrome:</strong> <em>Visual Agnosia</em> (cannot name seen objects) or <em>Prosopagnosia</em> (face blindness; can see eyes and nose but cannot identify who it is).
+            </div>
+          </div>
+
+          <!-- Sensory Maps (Tonotopic & Retinotopic) Mini Note -->
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400 pt-1">
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <strong class="text-slate-200 block">Tonotopic Map:</strong>
+              Cochlea & auditory cortex are organized like piano keys by pitch frequency.
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <strong class="text-slate-200 block">Retinotopic Map:</strong>
+              Visual cortex neurons maintain a direct 2D spatial map of the retina.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="attention" class="space-y-6 pt-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400 font-mono">Module 05</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Attention & Consciousness: How We Experience Reality</h3>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-amber-400">
+          <i class="fa-solid fa-bullseye text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Theory and Neglect Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Attention Taxonomy & Clinical Deficits -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-6 space-y-4">
+            <h4 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-flashlight text-amber-400"></i>
+              Taxonomy of Attention & The Attentional Spotlight
+            </h4>
+
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-800/40 border border-slate-800">
+                <span class="font-bold text-amber-300">Top-Down (Voluntary)</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">Goal-directed, conscious focal search (e.g., searching for keys).</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/40 border border-slate-800">
+                <span class="font-bold text-rose-300">Bottom-Up (Involuntary)</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">Salience-driven (e.g., sudden screeching tire or flash of red).</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/40 border border-slate-800">
+                <span class="font-bold text-cyan-300">Selective vs Sustained</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">Filtering out cocktail party chatter vs. maintaining vigilance over hours.</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-800/40 border border-slate-800">
+                <span class="font-bold text-emerald-300">Effortless Flow</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">High task engagement without subjective strain (expert musicians).</p>
+              </div>
+            </div>
+
+            <!-- Inattentional Blindness & Hemispatial Neglect -->
+            <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2">
+              <div class="text-amber-400 font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation"></i> Hemispatial Neglect vs. Inattentional Blindness
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-300">
+                <div class="border-l-2 border-amber-500 pl-2">
+                  <strong class="text-white block">Inattentional Blindness:</strong> Missing a visible unexpected object (e.g., invisible gorilla) because focus is totally allocated to another task.
+                </div>
+                <div class="border-l-2 border-rose-500 pl-2">
+                  <strong class="text-white block">Hemispatial Neglect:</strong> Damage to <em>right posterior parietal cortex</em> causing inability to orient attention to the contralateral (left) space. Not blindness—an attentional orientation deficit!
+                </div>
+              </div>
+            </div>
+
+            <!-- Attention vs Consciousness Dissociation -->
+            <div class="p-3 rounded-xl bg-slate-850 bg-slate-800/40 border border-slate-750 text-xs space-y-1">
+              <strong class="text-slate-200">Attention Without Consciousness:</strong>
+              <p class="text-slate-400 text-[11px]">Subliminal masked primes capture spatial attention without subjective awareness. "Zombie behaviors" (smoothly cycling, tying laces) execute without conscious scrutiny.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Lab: Pop-Out vs Conjunction Visual Search -->
+        <div class="lg:col-span-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 p-6 flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-semibold">
+                LAB 05: EXPERIMENT
+              </span>
+              <span class="text-xs text-slate-400"><i class="fa-solid fa-stopwatch mr-1"></i> Anne Treisman's FIT</span>
+            </div>
+
+            <h4 class="text-base font-bold text-white mt-2">Visual Search & Feature Integration Experiment</h4>
+            <p class="text-xs text-slate-400 mt-1">
+              Test Treisman's Feature Integration Theory on yourself: Pop-Out (parallel search) vs. Conjunction Search (serial serial search).
+            </p>
+
+            <!-- Experiment Controls -->
+            <div class="flex gap-2 mt-3">
+              <button onclick="startVisualSearch('popout')" class="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex-1 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-bolt"></i> Test Pop-Out Search
+              </button>
+              <button onclick="startVisualSearch('conjunction')" class="px-3 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white transition flex-1 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-magnifying-glass"></i> Test Conjunction Search
+              </button>
+            </div>
+
+            <!-- Experiment Stage Area -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-950 border border-slate-800 min-h-[200px] flex flex-col items-center justify-center relative select-none" id="searchArena">
+              <div id="searchPlaceholder" class="text-center space-y-2">
+                <i class="fa-solid fa-crosshairs text-3xl text-slate-600 animate-pulse"></i>
+                <p class="text-xs text-slate-400">Click a test button above.<br>Find the <strong class="text-rose-400">RED CIRCLE</strong> as fast as you can and click it!</p>
+              </div>
+              <div id="searchCanvas" class="hidden w-full h-44 relative"></div>
+            </div>
+
+            <!-- Reaction Timer Results Output -->
+            <div id="searchResultPanel" class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800 hidden text-xs flex items-center justify-between">
+              <div>
+                <span class="text-slate-400 block text-[11px]">Reaction Time:</span>
+                <span id="rtValue" class="text-lg font-mono font-bold text-emerald-400">342 ms</span>
+              </div>
+              <div class="text-right">
+                <span id="rtTheory" class="text-xs text-slate-300 font-semibold">Parallel Pop-Out Effect</span>
+                <span id="rtNote" class="block text-[10px] text-slate-400">Does not require serial spotlight attention.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Representational Neglect Note -->
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
+            <span class="font-bold text-rose-300 block mb-0.5">Milan Piazza Cathedral Test (Bisiach & Luzzatti):</span>
+            Patients mentally picturing a piazza only recalled buildings on their imagined right. When told to turn around, they recalled the other side they had just omitted! Proves mental imagery itself is subject to neglect.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashcard-section" class="space-y-6 pt-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-synapse-purple font-mono">Glossary & Mastery</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Interactive Flashcard Deck</h3>
+          <p class="text-xs text-slate-400">Active recall card engine covering all 17 syllabus glossary definitions.</p>
+        </div>
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button onclick="filterCards('all')" class="card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-synapse-purple text-white font-medium" data-filter="all">All (17)</button>
+          <button onclick="filterCards('genetics')" class="card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="genetics">Genetics</button>
+          <button onclick="filterCards('neuro')" class="card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="neuro">Neuro</button>
+          <button onclick="filterCards('memory')" class="card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white" data-filter="memory">Memory/Perception</button>
+        </div>
+      </div>
+
+      <!-- Main Flashcard Flip Arena -->
+      <div class="max-w-2xl mx-auto space-y-4">
+        <div class="perspective-1000 w-full h-72 cursor-pointer" onclick="flipActiveCard()">
+          <div id="flashcardInner" class="transform-style-3d relative w-full h-full duration-500 rounded-2xl shadow-2xl transition-transform">
+            <!-- Front Face -->
+            <div class="backface-hidden absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-slate-700/80 p-8 flex flex-col justify-between items-center text-center">
+              <div class="w-full flex justify-between items-center text-xs">
+                <span id="cardCategory" class="px-2.5 py-1 rounded-full bg-brand-500/20 text-brand-300 font-mono font-semibold">GENETICS</span>
+                <span id="cardCount" class="text-slate-400 font-mono">1 / 17</span>
+              </div>
+              <div class="my-auto space-y-2">
+                <span class="text-xs text-slate-400 uppercase tracking-widest font-mono">TERM TO DEFINE</span>
+                <h4 id="cardTerm" class="text-2xl sm:text-3xl font-extrabold text-white">Genotype</h4>
+                <p class="text-xs text-slate-500 italic mt-2"><i class="fa-solid fa-arrows-rotate mr-1"></i> Click anywhere to flip</p>
+              </div>
+              <div class="w-full flex justify-center text-slate-500 text-xs">
+                <span>Cognitive Psychology Revision Deck</span>
+              </div>
+            </div>
+
+            <!-- Back Face (Definition) -->
+            <div class="backface-hidden rotate-y-180 absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-900 via-brand-950/80 to-slate-900 border-2 border-brand-500/80 p-8 flex flex-col justify-between text-center items-center">
+              <div class="w-full flex justify-between items-center text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-semibold">DEFINITION</span>
+                <span class="text-brand-400 text-xs"><i class="fa-solid fa-check"></i> Active Review</span>
+              </div>
+              <div class="my-auto space-y-2">
+                <p id="cardDefinition" class="text-sm sm:text-base text-slate-100 leading-relaxed font-medium">
+                  The full genetic code an organism inherits from biological parents.
+                </p>
+                <p id="cardContext" class="text-xs text-brand-300 italic pt-2">
+                  Key contrast: Phenotype is the actual observable physical trait or behavior.
+                </p>
+              </div>
+              <div class="w-full flex justify-center text-slate-500 text-xs">
+                <span>Click again to flip back</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls: Next, Prev, Shuffle, Mark as Known -->
+        <div class="flex items-center justify-between gap-3 px-2">
+          <button onclick="prevCard()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-arrow-left"></i> Previous
+          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="shuffleDeck()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition" title="Shuffle Cards">
+              <i class="fa-solid fa-shuffle"></i>
+            </button>
+            <button onclick="toggleCardMastered()" id="masterBtn" class="px-3.5 py-2 rounded-xl bg-emerald-600/30 border border-emerald-500 text-emerald-300 hover:bg-emerald-600/50 text-xs font-semibold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check"></i> Mastered
+            </button>
+          </div>
+          <button onclick="nextCard()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+            Next <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz-section" class="space-y-6 pt-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400 font-mono">Self-Assessment</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Active-Recall Knowledge Check</h3>
+          <p class="text-xs text-slate-400">10 randomized multiple-choice scenario questions with immediate feedback & rationale.</p>
+        </div>
+        <div class="text-right">
+          <span class="text-xs font-mono text-slate-400">Score Tracker:</span>
+          <div id="quizScoreDisplay" class="text-xl font-extrabold text-amber-400 font-mono">0 / 0</div>
+        </div>
+      </div>
+
+      <!-- Quiz Card Container -->
+      <div class="max-w-3xl mx-auto rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+        <div class="flex items-center justify-between text-xs">
+          <span id="quizQuestionBadge" class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono font-bold">
+            QUESTION 1 OF 10
+          </span>
+          <span id="quizTopicBadge" class="text-slate-400 font-mono">Topic: Neuroimaging</span>
+        </div>
+
+        <!-- Question Prompt -->
+        <h4 id="quizQuestionText" class="text-base sm:text-lg font-bold text-white leading-snug">
+          Dr. Lin wants to record the exact millisecond when a participant recognizes an unexpected grammatical violation. Which method should she select?
+        </h4>
+
+        <!-- Options Container -->
+        <div id="quizOptionsContainer" class="space-y-3">
+          <!-- Dynamically populated options -->
+        </div>
+
+        <!-- Feedback & Explanation Box -->
+        <div id="quizFeedbackBox" class="hidden p-4 rounded-xl border text-xs space-y-2">
+          <div id="quizFeedbackTitle" class="font-bold flex items-center gap-1.5"></div>
+          <p id="quizFeedbackRationale" class="text-slate-300 leading-relaxed"></p>
+        </div>
+
+        <!-- Quiz Navigation Footer -->
+        <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+          <button onclick="resetQuiz()" class="text-xs text-slate-500 hover:text-slate-300 transition">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Restart Exam
+          </button>
+          <button id="quizNextBtn" onclick="nextQuizQuestion()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition hidden flex items-center gap-1.5">
+            Next Question <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="cheat-sheet" class="space-y-6 pt-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 font-mono">High-Yield Synthesis</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Quick Revision Sheet & Key Distinctions</h3>
+        </div>
+        <button onclick="window.print()" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-print"></i> Print Notes
+        </button>
+      </div>
+
+      <!-- Key Distinctions Interactive Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <div class="font-bold text-cyan-400 font-mono">GENOTYPE vs PHENOTYPE</div>
+          <p class="text-slate-300"><strong class="text-white">Genotype:</strong> The unexpressed genetic blueprint code.<br><strong class="text-white">Phenotype:</strong> The actual observable biological and behavioral expression.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <div class="font-bold text-emerald-400 font-mono">OVEREXTENSION vs UNDEREXTENSION</div>
+          <p class="text-slate-300"><strong class="text-white">Overextension:</strong> Calling all four-legged animals "doggy".<br><strong class="text-white">Underextension:</strong> Believing "cat" only denotes the specific family pet.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <div class="font-bold text-synapse-purple font-mono">APHASIA vs AMUSIA</div>
+          <p class="text-slate-300"><strong class="text-white">Double Dissociation:</strong> Brain damage can impair speech while music stays intact (aphasia), or destroy music perception while speech is spared (amusia).</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <div class="font-bold text-rose-400 font-mono">INATTENTIONAL BLINDNESS vs NEGLECT</div>
+          <p class="text-slate-300"><strong class="text-white">Inattentional:</strong> Missing stimulus due to full task loading.<br><strong class="text-white">Neglect:</strong> Inability to attend to opposite space due to parietal stroke.</p>
+        </div>
+      </div>
+
+      <!-- Neuroimaging Method Comparison Table -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/80">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-950 text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
+            <tr>
+              <th class="p-3.5">Method</th>
+              <th class="p-3.5">Signal Measured</th>
+              <th class="p-3.5">Best For...</th>
+              <th class="p-3.5">Major Limitation</th>
+              <th class="p-3.5 text-center">Invasiveness</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-3.5 font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-wave-square text-cyan-400"></i> fMRI
+              </td>
+              <td class="p-3.5">Blood oxygenation level changes (BOLD)</td>
+              <td class="p-3.5 text-emerald-400 font-medium">High spatial localization (3D voxels)</td>
+              <td class="p-3.5 text-rose-400">Sluggish hemodynamic response (low temporal res)</td>
+              <td class="p-3.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400">Safe/None</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-3.5 font-bold text-amber-300 flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-amber-400"></i> EEG
+              </td>
+              <td class="p-3.5">Scalp voltage fluctuations from neural assemblies</td>
+              <td class="p-3.5 text-emerald-400 font-medium">Millisecond temporal tracking (ERPs)</td>
+              <td class="p-3.5 text-rose-400">Skull blurs signal (poor spatial resolution)</td>
+              <td class="p-3.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400">None</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-3.5 font-bold text-rose-300 flex items-center gap-2">
+                <i class="fa-solid fa-radiation text-rose-400"></i> PET
+              </td>
+              <td class="p-3.5">Radioactive tracer glucose metabolism</td>
+              <td class="p-3.5 text-emerald-400 font-medium">Receptor mapping & deep metabolic tracking</td>
+              <td class="p-3.5 text-rose-400">Involves ionizing radiation, costly, slow</td>
+              <td class="p-3.5 text-center"><span class="px-2 py-0.5 rounded bg-rose-950 text-rose-400">Low Radiation</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-3.5 font-bold text-emerald-300 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i> TMS
+              </td>
+              <td class="p-3.5">Magnetic induction pulses to cortex</td>
+              <td class="p-3.5 text-emerald-400 font-medium">Testing direct cause-and-effect / transient lesions</td>
+              <td class="p-3.5 text-rose-400">Only penetrates surface cortex (1-2 cm)</td>
+              <td class="p-3.5 text-center"><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400">Non-Invasive</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-3.5 font-bold text-purple-300 flex items-center gap-2">
+                <i class="fa-solid fa-user-injured text-purple-400"></i> Lesion
+              </td>
+              <td class="p-3.5">Naturally occurring brain damage</td>
+              <td class="p-3.5 text-emerald-400 font-medium">Demonstrating essential structures for function</td>
+              <td class="p-3.5 text-rose-400">Messy boundaries, no baseline, plasticity confounds</td>
+              <td class="p-3.5 text-center"><span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400">Clinical</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="border-t border-slate-800 pt-8 pb-12 text-center text-xs text-slate-500 space-y-3">
+      <div class="flex justify-center space-x-6">
+        <a href="#foundations" class="hover:text-slate-300 transition">Foundations</a>
+        <a href="#neuroimaging" class="hover:text-slate-300 transition">Imaging</a>
+        <a href="#language" class="hover:text-slate-300 transition">Language</a>
+        <a href="#memory-perception" class="hover:text-slate-300 transition">Memory</a>
+        <a href="#attention" class="hover:text-slate-300 transition">Attention</a>
+        <a href="#quiz-section" class="hover:text-slate-300 transition">Knowledge Check</a>
+      </div>
+      <p>Interactive Study Hub based on Cognitive Psychology & Neuropsychology Revision Notes.</p>
+      <p class="text-[11px] text-slate-600">Built for high-yield recall, conceptual synthesis, and spatial exploration.</p>
+    </footer>
+  </main>
+
+  <script>
+    /* ==========================================================================
+       1. SYNTHESIS AUDIO ENGINE (Web Audio API - No external sounds)
+       ========================================================================== */
+    let audioContext = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          audioContext = new AudioCtx();
+        }
+      }
+    }
+
+    function playTone(freq = 440, type = 'sine', duration = 0.12, volume = 0.08) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioContext) return;
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+        gain.gain.setValueAtTime(volume, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.start();
+        osc.stop(audioContext.currentTime + duration);
+      } catch (e) {
+        // Fallback gracefully without breaking UI
+      }
+    }
+
+    function toggleAudioFeedback() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      if (soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-xs text-brand-400';
+        playTone(600, 'sine', 0.1);
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-xs text-slate-500';
+      }
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        playTone(520, 'sine', 0.08);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const bar = document.getElementById('scrollProgress');
+      if (bar) bar.style.width = scrolled + '%';
+    });
+
+    const geData = {
+      passive: {
+        title: "1. Passive Gene-Environment Correlation",
+        desc: "Parents pass on their biological genes and simultaneously shape the home environment. For instance, parents with high musical genetics naturally curate a home filled with instruments, song, and music lessons.",
+        diagram: `
+          <div class="flex items-center gap-3 text-center">
+            <div class="p-2 rounded bg-cyan-950 border border-cyan-700 text-[10px] text-cyan-300">Parental Genes</div>
+            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+            <div class="p-2 rounded bg-brand-950 border border-brand-700 text-[10px] text-brand-300">Home Environment</div>
+            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+            <div class="p-2 rounded bg-emerald-950 border border-emerald-700 text-[10px] text-emerald-300">Child's Trait Expression</div>
+          </div>
+        `
+      },
+      evocative: {
+        title: "2. Evocative (Reactive) Correlation",
+        desc: "An individual's genetically influenced behavior or appearance elicits distinct reactions from people around them. A baby who smiles and babbles easily evokes warm social attention, while an irritable infant elicits different parenting responses.",
+        diagram: `
+          <div class="flex items-center gap-3 text-center">
+            <div class="p-2 rounded bg-emerald-950 border border-emerald-700 text-[10px] text-emerald-300">Inherited Disposition</div>
+            <i class="fa-solid fa-bolt text-amber-500"></i>
+            <div class="p-2 rounded bg-amber-950 border border-amber-700 text-[10px] text-amber-300">Social Reaction Evoked</div>
+            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+            <div class="p-2 rounded bg-purple-950 border border-purple-700 text-[10px] text-purple-300">Reinforced Development</div>
+          </div>
+        `
+      },
+      active: {
+        title: "3. Active Correlation (Niche-Picking)",
+        desc: "Individuals consciously select and build environments that match their genetic propensities. A teenager with high spatial-visual aptitude chooses art school or robotics club over athletics.",
+        diagram: `
+          <div class="flex items-center gap-3 text-center">
+            <div class="p-2 rounded bg-purple-950 border border-purple-700 text-[10px] text-purple-300">Genetic Talent</div>
+            <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
+            <div class="p-2 rounded bg-cyan-950 border border-cyan-700 text-[10px] text-cyan-300">Active Niche Selection</div>
+            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+            <div class="p-2 rounded bg-brand-950 border border-brand-700 text-[10px] text-brand-300">Accelerated Skill</div>
+          </div>
+        `
+      },
+      assortative: {
+        title: "4. Assortative Mating",
+        desc: "People do not mate randomly; individuals systematically select partners who share similar physical characteristics, intellect, educational backgrounds, or behavioral temperaments.",
+        diagram: `
+          <div class="flex items-center gap-3 text-center">
+            <div class="p-2 rounded bg-rose-950 border border-rose-700 text-[10px] text-rose-300">Individual A (Traits)</div>
+            <i class="fa-solid fa-heart text-rose-500"></i>
+            <div class="p-2 rounded bg-rose-950 border border-rose-700 text-[10px] text-rose-300">Individual B (Similar Traits)</div>
+            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+            <div class="p-2 rounded bg-slate-900 border border-slate-700 text-[10px] text-slate-300">Non-Random Heredity</div>
+          </div>
+        `
+      }
+    };
+
+    function selectGECorrelation(type) {
+      document.querySelectorAll('.ge-btn').forEach(b => {
+        b.className = 'ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 transition';
+      });
+      const activeBtn = document.getElementById('geBtn-' + type);
+      if (activeBtn) {
+        activeBtn.className = 'ge-btn px-2.5 py-2 rounded-xl text-xs font-medium text-left border bg-brand-600/30 border-brand-500 text-white transition';
+      }
+
+      const item = geData[type];
+      document.getElementById('geContentTitle').innerText = item.title;
+      document.getElementById('geContentDesc').innerText = item.desc;
+      document.getElementById('geVisualDiagram').innerHTML = item.diagram;
+      playTone(480, 'triangle', 0.08);
+    }
+
+    function checkRGEAnswer(answer, btn) {
+      const fb = document.getElementById('rgeFeedback');
+      fb.classList.remove('hidden');
+      if (answer === 'evocative') {
+        fb.innerHTML = '<span class="text-emerald-400"><i class="fa-solid fa-check"></i> Correct!</span> The child\'s inherited height & coordination <em>evoked</em> proactive recruitment from coaches.';
+        btn.classList.add('bg-emerald-700', 'text-white');
+        playTone(680, 'sine', 0.15);
+      } else {
+        fb.innerHTML = '<span class="text-rose-400"><i class="fa-solid fa-xmark"></i> Not quite.</span> Remember: external individuals (coaches) reacting to inherited traits is an <em>evocative</em> correlation.';
+        btn.classList.add('bg-rose-900/60');
+        playTone(240, 'square', 0.15);
+      }
+    }
+
+    const methodData = {
+      fmri: {
+        name: "fMRI (Functional Magnetic Resonance Imaging)",
+        type: "Functional Neuroimaging",
+        badge: "Non-Invasive · Zero Radiation",
+        mechanism: "Measures localized changes in blood oxygen levels (the BOLD effect). Active neurons consume glucose and oxygen, causing an influx of diamagnetic oxygenated hemoglobin that perturbs magnetic radio-echo frequencies.",
+        best: "High spatial precision (1-3 mm 3D voxels) to pinpoint anatomical structures involved in memory, emotion, or perception.",
+        limitation: "Poor temporal resolution (hemodynamic blood response lags neural firing by 2 to 6 seconds).",
+        analogy: "Like a DSLR camera with a slow shutter speed: produces a crisp photo of the race track, but blur if trying to measure the exact millisecond a car crossed."
+      },
+      eeg: {
+        name: "EEG (Electroencephalography)",
+        type: "Electrical Recording",
+        badge: "Scalp Electrodes · Millisecond Fast",
+        mechanism: "Directly records postsynaptic electrical voltage fluctuations from tens of thousands of synchronously firing cortical pyramidal neurons using electrodes glued to the scalp.",
+        best: "Tracking rapid cognitive processes down to the exact millisecond (Event-Related Potentials / ERPs like the N400 language violation wave).",
+        limitation: "Poor spatial resolution; the electrical signals disperse and blur as they pass through the meninges, skull, and scalp.",
+        analogy: "Like a stopwatch: tells you the exact millisecond the car crossed the finish line, but the image is too blurry to see the driver's face."
+      },
+      meg: {
+        name: "MEG (Magnetoencephalography)",
+        type: "Magnetic Recording",
+        badge: "Superconducting SQUIDs · Extremely Expensive",
+        mechanism: "Detects the minute magnetic fields generated by intracranial electrical currents using ultra-sensitive superconducting quantum interference devices (SQUIDs) in a magnetically shielded room.",
+        best: "Combining millisecond temporal precision with substantially sharper spatial tracking than scalp EEG, since magnetic fields pass unwarped through bone.",
+        limitation: "Astronomical equipment and liquid-helium maintenance costs; highly sensitive to external magnetic noise.",
+        analogy: "The gold-standard high-speed camera: both crystal-clear temporal timing and sharp spatial tracking, but requires a multi-million-dollar shielded vault."
+      },
+      pet: {
+        name: "PET (Positron Emission Tomography)",
+        type: "Metabolic Imaging",
+        badge: "Injected Tracer · Radioactive",
+        mechanism: "Injects an unstable radioactive tracer (like Fluorodeoxyglucose [18F-FDG]). As neurons metabolize glucose, decaying positrons emit paired gamma photons caught by ring detectors.",
+        best: "Tracking neurotransmitter receptor density (dopamine binding in Parkinson's disease) and deep metabolic pathology.",
+        limitation: "Exposes subjects to ionizing radiation, very slow temporal window (minutes), and necessitates an on-site cyclotron.",
+        analogy: "Like tracking dye released into an irrigation system: tells you where the water is being absorbed, but you cannot use it repeatedly on healthy people."
+      },
+      tms: {
+        name: "TMS (Transcranial Magnetic Stimulation)",
+        type: "Neuromodulation / Causal Tool",
+        badge: "Electromagnetic Wand · Causal Inference",
+        mechanism: "A figure-8 wire coil held against the skull generates high-intensity magnetic pulses that pass painlessly through bone to induce local electrical currents, either exciting or temporarily disrupting ('virtual lesion') surface neurons.",
+        best: "Establishing direct cause-and-effect relationships rather than pure correlational imaging (e.g., proving that area MT is mandatory for visual motion perception).",
+        limitation: "Only reaches outer cerebral cortex (1-2 cm depth); cannot stimulate deep structures like the amygdala or hippocampus directly.",
+        analogy: "A temporary virtual breaker switch: flipping a switch off momentarily to see which specific household appliance shuts down."
+      },
+      mri: {
+        name: "MRI (Structural Magnetic Resonance Imaging)",
+        type: "Structural Anatomy",
+        badge: "High-Field Magnet (1.5T - 7T)",
+        mechanism: "Aligns hydrogen protons in body tissue water with a powerful magnetic field. Radiofrequency pulses tip protons; their realignment speed (relaxation time) varies by tissue density (white matter vs. grey matter vs. CSF).",
+        best: "Ultra-sharp anatomical pictures of brain morphology, volumetric atrophy (hippocampus shrinkage in Alzheimer's), or tumor detection.",
+        limitation: "Provides zero real-time information about cognitive functioning or milliseconds-level neural firing.",
+        analogy: "An ultra-detailed architectural blueprint of a house showing every room's dimensions, but revealing nothing about who is currently walking inside."
+      }
+    };
+
+    function selectMethodDetail(key) {
+      const data = methodData[key];
+      if (!data) return;
+
+      document.getElementById('detailType').innerText = data.type;
+      document.getElementById('detailBadge').innerText = data.badge;
+      document.getElementById('detailName').innerText = data.name;
+      document.getElementById('detailMechanism').innerHTML = `<strong class="text-white">Mechanism:</strong> ${data.mechanism}`;
+      document.getElementById('detailBest').innerText = data.best;
+      document.getElementById('detailLimitation').innerText = data.limitation;
+      document.getElementById('detailAnalogy').innerText = `"${data.analogy}"`;
+
+      playTone(550, 'sine', 0.09);
+    }
+
+    function filterMethods(category) {
+      document.querySelectorAll('.method-filter').forEach(b => {
+        b.className = 'method-filter px-2.5 py-1 rounded-md text-xs bg-slate-800 text-slate-300 hover:text-white';
+      });
+      event.target.className = 'method-filter px-2.5 py-1 rounded-md text-xs bg-cyan-600 text-white font-medium';
+
+      const pins = document.querySelectorAll('.method-pin');
+      pins.forEach(pin => {
+        if (category === 'all') {
+          pin.style.opacity = '1';
+          pin.style.pointerEvents = 'auto';
+        } else if (category === 'functional') {
+          if (pin.innerText.includes('MRI (Anatomy)')) {
+            pin.style.opacity = '0.2';
+            pin.style.pointerEvents = 'none';
+          } else {
+            pin.style.opacity = '1';
+            pin.style.pointerEvents = 'auto';
+          }
+        } else if (category === 'structural') {
+          if (!pin.innerText.includes('MRI (Anatomy)')) {
+            pin.style.opacity = '0.2';
+            pin.style.pointerEvents = 'none';
+          } else {
+            pin.style.opacity = '1';
+            pin.style.pointerEvents = 'auto';
+          }
+        }
+      });
+      playTone(400, 'triangle', 0.05);
+    }
+
+    function highlightStage(idx) {
+      const steps = document.querySelectorAll('.stage-step');
+      steps.forEach((s, i) => {
+        if (i === idx) {
+          s.classList.remove('bg-slate-800/30', 'border-slate-800');
+          s.classList.add('bg-slate-800/80', 'border-emerald-500');
+        } else {
+          s.classList.remove('bg-slate-800/80', 'border-emerald-500');
+          s.classList.add('bg-slate-800/30', 'border-slate-800');
+        }
+      });
+      playTone(420 + idx * 80, 'sine', 0.08);
+    }
+
+    function diagnoseLanguage(ans) {
+      const fb = document.getElementById('langDiagFeedback');
+      fb.classList.remove('hidden');
+      if (ans === 'overreg') {
+        fb.className = 'mt-3 text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-600 text-emerald-200 font-medium';
+        fb.innerHTML = '<i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> Correct! This is <strong>Overregularization</strong>. The child internalized the past-tense rule (verb + -ed) and systematically applied it to irregular verbs ("swimmed", "runned"). This proves internal algorithmic grammar acquisition rather than simple mimicry!';
+        playTone(660, 'sine', 0.12);
+      } else {
+        fb.className = 'mt-3 text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-700 text-rose-200 font-medium';
+        fb.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1 text-rose-400"></i> Incorrect. Review: Overextension is calling every dog "Garfield". This utterance demonstrates systematic rule-based morphological inflection: <strong>Overregularization</strong>.';
+        playTone(220, 'square', 0.12);
+      }
+    }
+
+    function explainSubsystem(type) {
+      if (type === 'phonological') {
+        playTone(520, 'sine', 0.1);
+      } else {
+        playTone(620, 'triangle', 0.1);
+      }
+    }
+
+    const visualStreams = {
+      ventral: {
+        title: "Ventral Stream: Object & Face Identification ('What')",
+        desc: "Travels from primary visual cortex (V1) downward into the inferior temporal lobe. Maps shapes, colors, textures, and lexical semantics to answer 'What am I looking at?'.",
+        clinical: "Damage causes Visual Agnosia (inability to recognize common objects by sight) or Prosopagnosia (inability to recognize familiar human faces, despite normal eyesight).",
+        svg: `
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1.5 rounded-lg bg-blue-950 border border-blue-600 text-xs text-blue-300 font-bold">V1 (Occipital)</span>
+            <i class="fa-solid fa-arrow-down-long text-cyan-400 text-lg"></i>
+            <span class="px-3 py-1.5 rounded-lg bg-cyan-950 border border-cyan-500 text-xs text-cyan-300 font-bold">Inferior Temporal Lobe ("WHAT")</span>
+          </div>
+        `
+      },
+      dorsal: {
+        title: "Dorsal Stream: Spatial Motion & Guided Action ('Where/How')",
+        desc: "Travels from primary visual cortex (V1) upward into the posterior parietal cortex. Processes real-time spatial coordinates, optic flow, speed, and guides sensorimotor limb actions (e.g., reaching smoothly to grasp a glass).",
+        clinical: "Damage causes Optic Ataxia (patient can see an apple and name it, but cannot direct their hand accurately to grasp it). Also underlies blindsight preservation.",
+        svg: `
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1.5 rounded-lg bg-blue-950 border border-blue-600 text-xs text-blue-300 font-bold">V1 (Occipital)</span>
+            <i class="fa-solid fa-arrow-up-long text-synapse-purple text-lg"></i>
+            <span class="px-3 py-1.5 rounded-lg bg-purple-950 border border-purple-500 text-xs text-purple-300 font-bold">Posterior Parietal Lobe ("WHERE / HOW")</span>
+          </div>
+        `
+      }
+    };
+
+    function toggleVisualStream(mode) {
+      const vBtn = document.getElementById('btn-ventral');
+      const dBtn = document.getElementById('btn-dorsal');
+      if (mode === 'ventral') {
+        vBtn.className = 'stream-btn p-3 rounded-xl bg-cyan-600/30 border border-cyan-400 text-left transition';
+        dBtn.className = 'stream-btn p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-left transition hover:bg-slate-800';
+      } else {
+        dBtn.className = 'stream-btn p-3 rounded-xl bg-purple-600/30 border border-purple-400 text-left transition';
+        vBtn.className = 'stream-btn p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-left transition hover:bg-slate-800';
+      }
+
+      const st = visualStreams[mode];
+      document.getElementById('streamTitle').innerText = st.title;
+      document.getElementById('streamDescription').innerText = st.desc;
+      document.getElementById('streamClinical').innerHTML = `<strong class="text-white">Lesion Syndrome:</strong> ${st.clinical}`;
+      document.getElementById('streamGraphic').innerHTML = st.svg;
+      playTone(mode === 'ventral' ? 490 : 580, 'sine', 0.08);
+    }
+
+    let searchStartTime = 0;
+    let searchTimerActive = false;
+
+    function startVisualSearch(type) {
+      const placeholder = document.getElementById('searchPlaceholder');
+      const canvas = document.getElementById('searchCanvas');
+      const resultPanel = document.getElementById('searchResultPanel');
+
+      placeholder.classList.add('hidden');
+      resultPanel.classList.add('hidden');
+      canvas.classList.remove('hidden');
+      canvas.innerHTML = '';
+
+      playTone(400, 'triangle', 0.08);
+
+      const count = 28;
+      const targetIndex = Math.floor(Math.random() * count);
+
+      for (let i = 0; i < count; i++) {
+        const item = document.createElement('div');
+        item.style.position = 'absolute';
+        item.style.left = (Math.random() * 85 + 5) + '%';
+        item.style.top = (Math.random() * 75 + 10) + '%';
+        item.className = 'cursor-pointer transition-transform hover:scale-125';
+
+        if (i === targetIndex) {
+          // TARGET: Always Red Circle
+          item.innerHTML = '<div class="w-6 h-6 rounded-full bg-rose-500 border border-rose-300 shadow-md"></div>';
+          item.onclick = () => finishVisualSearch(true, type);
+        } else {
+          // DISTRACTORS
+          if (type === 'popout') {
+            // Homogeneous distractors: Green Circles (Single feature pop-out)
+            item.innerHTML = '<div class="w-6 h-6 rounded-full bg-emerald-500"></div>';
+          } else {
+            // Conjunction distractors: Mixture of Red Squares and Green Circles
+            const isRedSquare = Math.random() > 0.5;
+            if (isRedSquare) {
+              item.innerHTML = '<div class="w-6 h-6 rounded-sm bg-rose-500"></div>';
+            } else {
+              item.innerHTML = '<div class="w-6 h-6 rounded-full bg-emerald-500"></div>';
+            }
+          }
+          item.onclick = () => finishVisualSearch(false, type);
+        }
+        canvas.appendChild(item);
+      }
+
+      searchStartTime = performance.now();
+      searchTimerActive = true;
+    }
+
+    function finishVisualSearch(isCorrect, type) {
+      if (!searchTimerActive) return;
+      searchTimerActive = false;
+      const elapsed = Math.round(performance.now() - searchStartTime);
+
+      const canvas = document.getElementById('searchCanvas');
+      const resultPanel = document.getElementById('searchResultPanel');
+      const rtValue = document.getElementById('rtValue');
+      const rtTheory = document.getElementById('rtTheory');
+      const rtNote = document.getElementById('rtNote');
+
+      canvas.classList.add('hidden');
+      resultPanel.classList.remove('hidden');
+
+      if (isCorrect) {
+        rtValue.innerText = `${elapsed} ms`;
+        if (type === 'popout') {
+          playTone(700, 'sine', 0.15);
+          rtTheory.innerText = "Parallel Pop-Out Feature Search";
+          rtTheory.className = "text-xs text-emerald-400 font-bold";
+          rtNote.innerText = "Instantaneous pre-attentive detection. Reaction time is virtually unaffected by distractor count.";
+        } else {
+          playTone(600, 'sine', 0.15);
+          rtTheory.innerText = "Serial Conjunction Search";
+          rtTheory.className = "text-xs text-amber-400 font-bold";
+          rtNote.innerText = "Requires binding color + shape sequentially. Focus spotlight must inspect candidates one-by-one.";
+        }
+      } else {
+        playTone(200, 'sawtooth', 0.2);
+        rtValue.innerText = "Missed Target";
+        rtTheory.innerText = "Distractor Clicked";
+        rtTheory.className = "text-xs text-rose-400 font-bold";
+        rtNote.innerText = "Ensure you find the RED CIRCLE amidst the squares and green distractors.";
+      }
+    }
+
+    const flashcardsData = [
+      { term: "Genotype", category: "genetics", def: "The complete, inherited DNA sequence code an organism receives from parents.", context: "Compare with Phenotype (observable trait)." },
+      { term: "Phenotype", category: "genetics", def: "The actual observable physical characteristics, personality, and behaviors expressed.", context: "Outcome of genotype interacting with environment." },
+      { term: "Heritability", category: "genetics", def: "A population-level statistical metric measuring how much phenotypic variance is driven by genetic differences.", context: "Applies strictly to populations, not an individual." },
+      { term: "Assortative Mating", category: "genetics", def: "A non-random mating pattern where individuals select mates with similar phenotypes.", context: "Height, IQ, and personality show assortative trends." },
+      { term: "BOLD Effect", category: "neuro", def: "Blood Oxygenation Level-Dependent signal tracked by fMRI as active neurons consume oxygenated blood.", context: "Provides high spatial resolution but sluggish temporal latency." },
+      { term: "Tonotopic Map", category: "neuro", def: "The systematic spatial arrangement where neurons respond to auditory frequencies ordered like a piano keyboard.", context: "Preserved from the cochlear basilar membrane up to A1." },
+      { term: "Retinotopic Map", category: "neuro", def: "The preserved 2D spatial arrangement in the primary visual cortex (V1) matching positions on the retina.", context: "Neighboring retinal cells project to neighboring V1 neurons." },
+      { term: "Central Executive", category: "memory", def: "The attentional supervisor of Baddeley's working memory model managing task switching and resource allocation.", context: "Directs the Phonological Loop and Visuo-Spatial Sketchpad." },
+      { term: "Phonological Loop", category: "memory", def: "The working memory component that holds speech sounds and keeps them active via silent articulatory rehearsal.", context: "Constrained by the word-length effect." },
+      { term: "Visuo-Spatial Sketchpad", category: "memory", def: "The working memory component that stores and manipulates visual images and spatial mental maps.", context: "Operates in parallel with the phonological loop." },
+      { term: "Ventral Stream", category: "neuro", def: "The occipito-temporal cortical pathway specializing in object recognition and color ('What').", context: "Damage causes Visual Agnosia or Prosopagnosia." },
+      { term: "Dorsal Stream", category: "neuro", def: "The occipito-parietal cortical pathway specializing in spatial motion and motor guidance ('Where/How').", context: "Damage causes Optic Ataxia." },
+      { term: "Prosopagnosia", category: "neuro", def: "A neurological condition resulting from ventral stream damage causing selective face blindness.", context: "Can identify parts (eyes, mouth) but not identities." },
+      { term: "Hemispatial Neglect", category: "neuro", def: "An attentional deficit usually caused by right parietal damage where patients ignore the contralateral (left) space.", context: "An attentional spotlight failure, not sensory blindness." },
+      { term: "Inattentional Blindness", category: "memory", def: "The failure to perceive a fully visible unexpected object because attention is engaged elsewhere.", context: "Demonstrated by the invisible gorilla study." },
+      { term: "Universal Grammar", category: "memory", def: "Noam Chomsky's theory that humans possess an innate, biologically hardwired grammatical blueprint.", context: "Supported by the 'poverty of the stimulus' argument." },
+      { term: "Cochlea", category: "neuro", def: "A fluid-filled inner-ear organ where sound vibrations deflect basilar hair cells into neural electrical action potentials.", context: "Converts pressure waves into auditory nerve firing." }
+    ];
+
+    let currentCardIndex = 0;
+    let cardFlipped = false;
+    let filteredDeck = [...flashcardsData];
+    let masteredCards = new Set();
+
+    function renderCurrentCard() {
+      if (filteredDeck.length === 0) return;
+      const card = filteredDeck[currentCardIndex];
+      const inner = document.getElementById('flashcardInner');
+      
+      // Reset flip
+      inner.classList.remove('rotate-y-180');
+      cardFlipped = false;
+
+      document.getElementById('cardCategory').innerText = card.category.toUpperCase();
+      document.getElementById('cardCount').innerText = `${currentCardIndex + 1} / ${filteredDeck.length}`;
+      document.getElementById('cardTerm').innerText = card.term;
+      document.getElementById('cardDefinition').innerText = card.def;
+      document.getElementById('cardContext').innerText = card.context;
+
+      const masterBtn = document.getElementById('masterBtn');
+      if (masteredCards.has(card.term)) {
+        masterBtn.classList.add('bg-emerald-600', 'text-white');
+        masterBtn.innerHTML = '<i class="fa-solid fa-check"></i> Mastered';
+      } else {
+        masterBtn.classList.remove('bg-emerald-600', 'text-white');
+        masterBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Mark Mastered';
+      }
+    }
+
+    function flipActiveCard() {
+      const inner = document.getElementById('flashcardInner');
+      cardFlipped = !cardFlipped;
+      if (cardFlipped) {
+        inner.classList.add('rotate-y-180');
+        playTone(500, 'sine', 0.08);
+      } else {
+        inner.classList.remove('rotate-y-180');
+        playTone(420, 'sine', 0.08);
+      }
+    }
+
+    function nextCard() {
+      currentCardIndex = (currentCardIndex + 1) % filteredDeck.length;
+      renderCurrentCard();
+      playTone(460, 'triangle', 0.06);
+    }
+
+    function prevCard() {
+      currentCardIndex = (currentCardIndex - 1 + filteredDeck.length) % filteredDeck.length;
+      renderCurrentCard();
+      playTone(460, 'triangle', 0.06);
+    }
+
+    function shuffleDeck() {
+      filteredDeck.sort(() => Math.random() - 0.5);
+      currentCardIndex = 0;
+      renderCurrentCard();
+      playTone(600, 'sine', 0.1);
+    }
+
+    function toggleCardMastered() {
+      const card = filteredDeck[currentCardIndex];
+      if (masteredCards.has(card.term)) {
+        masteredCards.delete(card.term);
+      } else {
+        masteredCards.add(card.term);
+        playTone(750, 'sine', 0.15);
+      }
+      renderCurrentCard();
+    }
+
+    function filterCards(cat) {
+      document.querySelectorAll('.card-filter-btn').forEach(b => {
+        b.className = 'card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-slate-300 hover:text-white';
+      });
+      event.target.className = 'card-filter-btn px-2.5 py-1 text-xs rounded-lg bg-synapse-purple text-white font-medium';
+
+      if (cat === 'all') {
+        filteredDeck = [...flashcardsData];
+      } else {
+        filteredDeck = flashcardsData.filter(c => c.category === cat);
+      }
+      currentCardIndex = 0;
+      renderCurrentCard();
+      playTone(480, 'sine', 0.07);
+    }
+
+    const quizQuestions = [
+      {
+        topic: "Neuroimaging Methods",
+        q: "Dr. Lin wishes to determine the exact millisecond when the human brain registers a syntactic violation in a sentence. Which tool is optimal?",
+        options: [
+          { text: "fMRI (Functional Magnetic Resonance Imaging)", correct: false },
+          { text: "EEG / Event-Related Potentials (ERPs)", correct: true },
+          { text: "PET scan using radioactive glucose tracers", correct: false },
+          { text: "Structural CT scan", correct: false }
+        ],
+        rationale: "EEG directly records electrical voltage at scalp level with millisecond temporal precision, ideal for rapid linguistic markers (e.g., P600 or N400)."
+      },
+      {
+        topic: "Visual Pathways",
+        q: "A patient suffering an ischemic stroke can reach out accurately to catch a thrown ball, but cannot identify whether the object is a ball, an apple, or a cup. What is the damaged pathway?",
+        options: [
+          { text: "Dorsal stream ('Where/How' parietal highway)", correct: false },
+          { text: "Ventral stream ('What' inferotemporal highway)", correct: true },
+          { text: "Primary auditory tonotopic projection", correct: false },
+          { text: "Somatosensory spinothalamic tract", correct: false }
+        ],
+        rationale: "The ventral pathway ('What') handles object recognition and semantic classification. Preserved reaching indicates the dorsal 'where/how' pathway is intact."
+      },
+      {
+        topic: "Language Development",
+        q: "A 30-month-old child proudly tells her father: 'We wented to the park and I swimmed!'. What linguistic phenomenon does this demonstrate?",
+        options: [
+          { text: "Underextension of lexical meaning", correct: false },
+          { text: "Overregularization of morphological rules", correct: true },
+          { text: "Telegraphic syntax absence", correct: false },
+          { text: "Phonotactic illegal sequence error", correct: false }
+        ],
+        rationale: "Overregularization proves children do not merely mimic adults; they extract internal algorithmic rules (like adding -ed) and apply them across irregular verbs."
+      },
+      {
+        topic: "Gene-Environment Correlations",
+        q: "An adolescent with an innate genetic aptitude for fine motor coordination proactively decides to spend evenings practicing guitar and joins the high school jazz band. This is an example of:",
+        options: [
+          { text: "Passive gene-environment correlation", correct: false },
+          { text: "Evocative gene-environment correlation", correct: false },
+          { text: "Active gene-environment correlation (niche-picking)", correct: true },
+          { text: "Assortative mating selection", correct: false }
+        ],
+        rationale: "Active correlation (niche-picking) occurs when an individual actively seeks out or creates environmental experiences that align with their genetic inclinations."
+      },
+      {
+        topic: "Working Memory Models",
+        q: "According to Baddeley and Hitch's model, why is it easy to listen to a narrative podcast while sketching a map, but difficult to read text while someone speaks aloud nearby?",
+        options: [
+          { text: "The Central Executive cannot handle spatial coordinates", correct: false },
+          { text: "Sketching and listening utilize independent slave systems, while reading and speech both compete for the Phonological Loop", correct: true },
+          { text: "The Visuo-Spatial sketchpad has zero processing capacity", correct: false },
+          { text: "Patient KF proved all memories share one single bottleneck", correct: false }
+        ],
+        rationale: "Working memory has domain-specific subsystems. Verbal tasks compete for the phonological loop, creating a bottleneck, whereas visual and verbal operations run in parallel."
+      },
+      {
+        topic: "Attention & Pathology",
+        q: "When asked to draw a clock from memory, a patient draws all 12 numbers squeezed onto the right half of the circle. This condition is known as:",
+        options: [
+          { text: "Prosopagnosia", correct: false },
+          { text: "Hemispatial Neglect (typically right parietal stroke)", correct: true },
+          { text: "Inattentional Blindness", correct: false },
+          { text: "Optic Ataxia", correct: false }
+        ],
+        rationale: "Hemispatial neglect involves an inability to allocate attention toward the contralateral (left) field, commonly due to right posterior parietal lesions."
+      },
+      {
+        topic: "Feature Integration Theory",
+        q: "According to Anne Treisman's Feature Integration Theory, searching for a red circle among green circles (feature search) is fast because:",
+        options: [
+          { text: "Elementary visual features are extracted automatically in parallel across the visual field", correct: true },
+          { text: "The central executive directs serial saccades to every green circle", correct: false },
+          { text: "Conjunction features do not require attentional binding", correct: false },
+          { text: "Dorsal stream lesions accelerate reaction times", correct: false }
+        ],
+        rationale: "Pop-out occurs pre-attentively in parallel. Focused, serial spotlight attention is only demanded when binding multiple conjunction features (e.g. shape + color)."
+      },
+      {
+        topic: "Clinical Double Dissociation",
+        q: "Patient KF suffered left hemisphere damage: his short-term verbal span dropped to only 1–2 items, yet his long-term memory formation remained completely intact. What did this definitively prove?",
+        options: [
+          { text: "Short-term memory is the mandatory precursor bottleneck to long-term memory", correct: false },
+          { text: "Short-term and long-term memory rely on distinct, dissociable neural architectures", correct: true },
+          { text: "Language and music always share the exact same neural structures", correct: false },
+          { text: "The BOLD effect cannot measure parietal tissue", correct: false }
+        ],
+        rationale: "KF disproved the sequential bottleneck model by demonstrating that intact long-term memory does not strictly require an intact short-term memory buffer."
+      },
+      {
+        topic: "Sensory Mapping",
+        q: "In both the human cochlea and the primary auditory cortex (A1), frequencies are arranged systematically from low to high. This spatial organization is known as:",
+        options: [
+          { text: "Retinotopic mapping", correct: false },
+          { text: "Tonotopic mapping", correct: true },
+          { text: "Somatosensory homunculus", correct: false },
+          { text: "Feature bind topology", correct: false }
+        ],
+        rationale: "A tonotopic map organizes acoustic frequencies sequentially, mirroring the spatial gradient along the basilar membrane of the cochlea."
+      },
+      {
+        topic: "Consciousness & Behavior",
+        q: "Smoothly balancing on a bicycle or tying your shoelaces without conscious deliberation are examples of:",
+        options: [
+          { text: "Top-down conjunction searching", correct: false },
+          { text: "'Zombie behaviors' (automated motor programs running without conscious oversight)", correct: true },
+          { text: "Hemispatial neglect compensation", correct: false },
+          { text: "Universal grammar acquisition", correct: false }
+        ],
+        rationale: "Automated sensorimotor routines ('zombie behaviors') execute efficiently via subcortical and motor loops with minimal conscious attentional spotlight loading."
+      }
+    ];
+
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let answeredCurrent = false;
+
+    function renderQuizQuestion() {
+      answeredCurrent = false;
+      const q = quizQuestions[currentQuizIndex];
+      document.getElementById('quizQuestionBadge').innerText = `QUESTION ${currentQuizIndex + 1} OF ${quizQuestions.length}`;
+      document.getElementById('quizTopicBadge').innerText = `Topic: ${q.topic}`;
+      document.getElementById('quizQuestionText').innerText = q.q;
+
+      const optsContainer = document.getElementById('quizOptionsContainer');
+      optsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-3.5 rounded-xl bg-slate-800/70 border border-slate-700/80 hover:bg-slate-800 text-slate-200 text-xs transition flex items-center justify-between group';
+        btn.innerHTML = `
+          <span>${opt.text}</span>
+          <i class="fa-regular fa-circle text-slate-500 group-hover:text-amber-400"></i>
+        `;
+        btn.onclick = () => selectQuizAnswer(idx, btn);
+        optsContainer.appendChild(btn);
+      });
+
+      document.getElementById('quizFeedbackBox').className = 'hidden';
+      document.getElementById('quizNextBtn').classList.add('hidden');
+      document.getElementById('quizScoreDisplay').innerText = `${quizScore} / ${currentQuizIndex}`;
+    }
+
+    function selectQuizAnswer(chosenIdx, btnElement) {
+      if (answeredCurrent) return;
+      answeredCurrent = true;
+
+      const q = quizQuestions[currentQuizIndex];
+      const isCorrect = q.options[chosenIdx].correct;
+
+      const fbBox = document.getElementById('quizFeedbackBox');
+      const fbTitle = document.getElementById('quizFeedbackTitle');
+      const fbRationale = document.getElementById('quizFeedbackRationale');
+
+      fbBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        quizScore++;
+        playTone(700, 'sine', 0.18);
+        btnElement.className = 'w-full text-left p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500 text-emerald-200 text-xs font-semibold flex items-center justify-between';
+        btnElement.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+
+        fbBox.className = 'p-4 rounded-xl bg-emerald-950/60 border border-emerald-700 text-xs space-y-1';
+        fbTitle.className = 'font-bold text-emerald-300 flex items-center gap-1.5';
+        fbTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Correct!';
+      } else {
+        playTone(220, 'sawtooth', 0.2);
+        btnElement.className = 'w-full text-left p-3.5 rounded-xl bg-rose-950/80 border border-rose-500 text-rose-200 text-xs font-semibold flex items-center justify-between';
+        btnElement.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-400';
+
+        // Highlight correct one
+        const buttons = document.getElementById('quizOptionsContainer').querySelectorAll('button');
+        q.options.forEach((opt, idx) => {
+          if (opt.correct) {
+            buttons[idx].className = 'w-full text-left p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-600/70 text-emerald-300 text-xs flex items-center justify-between';
+            buttons[idx].querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+          }
+        });
+
+        fbBox.className = 'p-4 rounded-xl bg-rose-950/60 border border-rose-800 text-xs space-y-1';
+        fbTitle.className = 'font-bold text-rose-300 flex items-center gap-1.5';
+        fbTitle.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Incorrect Rationale';
+      }
+
+      fbRationale.innerText = q.rationale;
+      document.getElementById('quizScoreDisplay').innerText = `${quizScore} / ${currentQuizIndex + 1}`;
+      document.getElementById('quizNextBtn').classList.remove('hidden');
+    }
+
+    function nextQuizQuestion() {
+      if (currentQuizIndex < quizQuestions.length - 1) {
+        currentQuizIndex++;
+        renderQuizQuestion();
+        playTone(480, 'sine', 0.08);
+      } else {
+        // Complete Quiz Summary
+        const card = document.getElementById('quizOptionsContainer');
+        card.innerHTML = `
+          <div class="text-center py-6 space-y-3">
+            <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 text-2xl flex items-center justify-center mx-auto border border-amber-500/40">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h5 class="text-xl font-bold text-white">Revision Assessment Complete!</h5>
+            <p class="text-sm text-slate-300">You scored <strong class="text-amber-400 text-lg">${quizScore} out of ${quizQuestions.length}</strong> (${Math.round((quizScore / quizQuestions.length) * 100)}%).</p>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">Great job! You have revised gene-environment dynamics, neuroimaging temporal/spatial resolutions, language overregularization, working memory loops, and attention deficits.</p>
+          </div>
+        `;
+        document.getElementById('quizFeedbackBox').classList.add('hidden');
+        document.getElementById('quizNextBtn').classList.add('hidden');
+        playTone(800, 'sine', 0.25);
+      }
+    }
+
+    function resetQuiz() {
+      currentQuizIndex = 0;
+      quizScore = 0;
+      renderQuizQuestion();
+      playTone(450, 'sine', 0.08);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize Lab 1
+      selectGECorrelation('passive');
+
+      // Initialize Lab 2
+      selectMethodDetail('fmri');
+
+      // Initialize Lab 4
+      toggleVisualStream('ventral');
+
+      // Initialize Flashcards
+      renderCurrentCard();
+
+      // Initialize Quiz
+      renderQuizQuestion();
+    });
+  </script>
+</body>
+</html>
